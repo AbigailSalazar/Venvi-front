@@ -1,0 +1,32 @@
+div{
+    display: block;
+    width: min-content;
+    border-radius: 2px;
+    border: 1px solid #E4E7E9; 
+    padding: 8px;
+}
+div:hover{
+cursor: pointer;
+}
+
+div img#producto{
+    width: 202px;
+    height: 172px;
+    border: none; 
+    outline: none; 
+    
+}
+
+h4{
+    font-family: 'Public Sans',sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #191C1F;
+}
+
+p{
+    font-family: 'Public Sans',sans-serif;
+    font-size: 14px;
+    color: #4097BF;
+    font-weight: 600;
+}

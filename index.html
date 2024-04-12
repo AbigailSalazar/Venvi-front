@@ -1,0 +1,92 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="script.js"></script>
+    <link href="styles.css" rel="stylesheet">
+    <title>Venvi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav-bar></nav-bar>
+    <main>
+        <section id="filtros">
+            <h5>CATEGORIA</h5>
+            <div id="filtro-categoria" idFiltro="categoria">
+                <ul class="categoria-list">
+                    <li>
+                        <input type="radio" id="ejemplo1" name="color">
+                        <label for="ejemplo1">Categoría 1</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="ejemplo2" name="color" value="blue">
+                        <label for="ejemplo2">Categoría 2</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="ejemplo3" name="color" value="green">
+                        <label for="ejemplo3">Categoría 3</label>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <h5>RANGO DE PRECIO</h5>
+            <div id="filtro-precio" idFiltro="precio">
+                <div id="rango">
+                    <input placeholder="Min" type="number">
+                    <input placeholder="Max" type="number">
+                </div>
+                <ul class="precio-list">
+                    <li>
+                        <input type="radio" id="precio-todos" name="precio">
+                        <label for="precio-todos">Todos los precios</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="precio-bajo" name="precio" value="blue">
+                        <label for="precio-bajo">Debajo de 20$</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="precio-medio" name="precio" value="green">
+                        <label for="precio-medio">25$ a 100$</label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="productos">
+            <div id="sort">
+                <label>Organizar por</label>
+                <select>
+                    <option id="sort-item">Fecha de publicacion</option>
+                    <option id="sort-item">A-Z</option>
+                    <option id="sort-item">Z-A</option>
+                </select>
+            </div>
+            <div id="active-filters">
+                <label>Filtros activos</label>
+                <div id="filter-tag">
+                    <label>Filtro Ejemplo</label>
+                    <button class="icon" id="cancel"></button>
+                </div>
+                <div id="filter-tag">
+                    <label>Filtro Ejemplo2</label>
+                    <button class="icon" id="cancel"></button>
+                </div>
+                <label id="n-resultados">N Resultados.</label>
+            </div>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        <producto-info></producto-info>
+        </section>
+    </main>
+</body>
+
+</html>

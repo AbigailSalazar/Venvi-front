@@ -1,0 +1,74 @@
+nav{
+    background-color: #265B73;
+    display: flex;
+    width: auto;
+    justify-content: center;
+    vertical-align: middle;
+    padding: 20px;
+    height: 50px;
+}
+
+#search{
+    background-color: #FFFFFF;
+    display: flex;
+    width: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 2px;
+    align-items: center;
+    align-self: center;
+    height: 48px;
+    box-shadow: 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+  border: none; 
+  outline: none; 
+  background-color: #FFFFFF;
+  padding: 8px 12px;
+  font-size: 12px; 
+  color: #333; 
+  height: 20px;
+  width: 100%;
+  text-align: left;
+  font-family: 'Public Sans',sans-serif;
+}
+
+input[type="text"]:focus {
+  border: none
+}
+
+button {
+    width: 20px;
+    height: 20px;
+    border: none; 
+    outline: none; 
+    margin-left: 8px;
+    margin-right: 20px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    align-self: center;
+    justify-self: right;
+  }
+
+  button#btn-search{
+    background-image: url("/src/assets/search.svg");
+  }
+
+  
+  button#car{
+    size: 32px;
+    background-image: url("/src/assets/shopping-cart.svg");
+    background-color: transparent;
+  }
+
+  
+  button#user{
+    size: 32px;
+    background-image: url("/src/assets/user.svg");
+    background-color: transparent;
+    background-blend-mode: multiply; 
+
+  }
