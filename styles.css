@@ -1,14 +1,18 @@
+/*Estilos generales de la aplicación*/
 body{
+    margin: 0;
     font-family: 'Public Sans',sans-serif;
 }
 
+
+
 /*Estilos para los filtros*/
-section#filtros{
+section#izquierda{
     width: 20%;
     align-self: flex-start;
 }
 
-section#productos{
+section#derecha{
     width: min-content;
     display: grid;
     grid-template-columns:auto;
@@ -170,3 +174,42 @@ button.icon {
   #n-resultados{
     margin-left: auto; 
   }
+
+  #columnnames{
+    display: flex;
+    width: 100%;
+    background-color: #F2F2F2;
+    height: 38px;
+    justify-content: space-around;
+  }
+  #columnnames>label{
+    padding: 4px 3% 4px 3%;
+    gap: 16px;
+    font-size: 12px;
+
+  }
+  div.contenedor{
+    display: block;
+    width: 100%;
+    margin-right: 100px;
+    padding: 20px;
+  }
+
+.contenedor> h3{
+    height: 20px;
+    font-size: 12px;
+    border: 1px solid #E4E7E9; 
+    outline: none; 
+    border-radius: 3px;
+    margin-bottom: 0;
+    padding: 15px;
+
+}
+#content{
+    border: 1px solid #E4E7E9; 
+    outline: none; 
+    border-radius: 3px;
+    padding: 25px 50px 25px 50px;
+    display: block;
+  
+}

@@ -1,0 +1,40 @@
+section {
+    font-family: 'Public Sans',sans-serif;
+    display: block;
+    border: 1px solid #E4E7E9;
+    outline: none;
+    background-color: #FFFFFF;
+    font-size: 14px;
+    border-radius: 3px;
+    color: #5F6C72;
+    width: 100%;
+
+}
+
+img{
+    width: 20px;
+    height: 20px;
+    filter: invert(42%) sepia(17%) saturate(297%) hue-rotate(154deg) brightness(92%) contrast(87%);
+}
+
+div{
+    padding: 8px;
+    margin: 0;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+label{
+    align-self: center;
+}
+
+div:hover{
+    background-color: #F2F2F2;
+    cursor: pointer;
+}
+
+

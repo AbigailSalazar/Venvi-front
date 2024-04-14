@@ -51,6 +51,7 @@ button {
     cursor: pointer;
     align-self: center;
     justify-self: right;
+
   }
 
   button#btn-search{
@@ -62,6 +63,7 @@ button {
     size: 32px;
     background-image: url("/src/assets/shopping-cart.svg");
     background-color: transparent;
+    filter: invert(1);
   }
 
   
@@ -70,5 +72,5 @@ button {
     background-image: url("/src/assets/user.svg");
     background-color: transparent;
     background-blend-mode: multiply; 
-
+    filter: invert(1);
   }
