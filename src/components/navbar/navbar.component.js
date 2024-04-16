@@ -20,7 +20,7 @@ export class Navbar extends HTMLElement{
             <button id="btn-search"></button>
         </div>
         <button id="car">
-        <button id="user">
+        <a href="/usuario-productos.html"><button id="user"></a>
     </nav>
         
         `
