@@ -4,7 +4,34 @@ body{
     font-family: 'Public Sans',sans-serif;
 }
 
+main{
+    display: flex;
+    padding-top: 40px;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin: 16px;
+}
 
+button{
+    height: 48px;
+    width: fit-content;
+    padding: 12px;
+    color: #FFFFFF;
+    background-color: #4097BF;
+    font-size: 12px;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    align-self: flex-start;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+button:hover{
+    background-color: #265B73;
+}
 
 /*Estilos para los filtros*/
 section#izquierda{
@@ -24,13 +51,6 @@ div#filtro{
     padding-bottom: 24px;
 }
 
-main{
-    display: flex;
-    padding-top: 40px;
-    align-items: center;
-    gap: 24px;
-    justify-content: center;
-}
 
 input[type="radio"]{
     margin: 0;
@@ -175,6 +195,10 @@ button.icon {
     margin-left: auto; 
   }
 
+  /*Estilos para tabla*/
+
+  
+
   #columnnames{
     display: flex;
     width: 100%;
@@ -188,20 +212,19 @@ button.icon {
     font-size: 12px;
 
   }
-  div.contenedor{
+  div.tabla{
     display: block;
     width: 100%;
-    margin-right: 100px;
-    padding: 20px;
+    margin: right 5%;;
   }
 
-.contenedor> h3{
+.tabla> h3{
     height: 20px;
     font-size: 12px;
     border: 1px solid #E4E7E9; 
     outline: none; 
     border-radius: 3px;
-    margin-bottom: 0;
+    margin: 0;
     padding: 15px;
 
 }

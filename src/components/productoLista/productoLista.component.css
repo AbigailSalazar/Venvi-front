@@ -4,12 +4,22 @@ section{
     height: 72px;
     gap: 24px;
     margin-bottom: 8px;
+    padding: 0px 16px 0px 16px;
+}
+
+section:hover{
+    background-color: #F2F2F2;
+    cursor: pointer;
 }
 
 label{
     width: 35%;
     align-self: center;
     justify-content: center;
+}
+
+label:hover{
+    cursor: pointer;
 }
 
 img.icon{

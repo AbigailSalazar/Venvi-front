@@ -25,11 +25,15 @@ div{
     display: flex;
     align-items: center;
     gap: 16px;
-    width: 100%;
+    width: auto;
 }
 
 label{
     align-self: center;
+}
+
+label:hover{
+    cursor: pointer;
 }
 
 div:hover{
