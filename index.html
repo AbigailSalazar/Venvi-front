@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -15,44 +14,45 @@
     <main>
         <section id="izquierda">
             <h5>CATEGORIA</h5>
-            <div id="filtro-categoria" idFiltro="categoria">
+            <div class="filtro" idFiltro="categoria">
                 <ul class="categoria-list">
                     <li>
-                        <input type="radio" id="ejemplo1" name="color">
+                        <input type="radio" id="ejemplo1" name="categoria" value="Categoria 1">
                         <label for="ejemplo1">Categoría 1</label>
                     </li>
                     <li>
-                        <input type="radio" id="ejemplo2" name="color" value="blue">
+                        <input type="radio" id="ejemplo2" name="categoria" value="Categoria 2">
                         <label for="ejemplo2">Categoría 2</label>
                     </li>
                     <li>
-                        <input type="radio" id="ejemplo3" name="color" value="green">
+                        <input type="radio" id="ejemplo3" name="categoria" value="Categoria 3">
                         <label for="ejemplo3">Categoría 3</label>
                     </li>
                 </ul>
             </div>
             <hr>
             <h5>RANGO DE PRECIO</h5>
-            <div id="filtro-precio" idFiltro="precio">
+            <div class="filtro" idFiltro="precio">
                 <div id="rango">
-                    <input placeholder="Min" type="number">
-                    <input placeholder="Max" type="number">
+                    <input id="min-precio" placeholder="Min" type="number" min="0">
+                    <input id="max-precio" placeholder="Max" type="number" min="0">
                 </div>
                 <ul class="precio-list">
                     <li>
-                        <input type="radio" id="precio-todos" name="precio">
+                        <input type="radio" id="precio-todos" name="precio" value="Todos los precios">
                         <label for="precio-todos">Todos los precios</label>
                     </li>
                     <li>
-                        <input type="radio" id="precio-bajo" name="precio" value="blue">
+                        <input type="radio" id="precio-bajo" name="precio" value="Debajo de 20$">
                         <label for="precio-bajo">Debajo de 20$</label>
                     </li>
                     <li>
-                        <input type="radio" id="precio-medio" name="precio" value="green">
+                        <input type="radio" id="precio-medio" name="precio" value="25$ a 100$">
                         <label for="precio-medio">25$ a 100$</label>
                     </li>
                 </ul>
             </div>
+            <button id="aplicar-filtros">Aplicar filtros</button>
         </section>
         <section id="derecha">
             <div id="sort">
@@ -64,29 +64,27 @@
                 </select>
             </div>
             <div id="active-filters">
-                <label>Filtros activos</label>
-                <div id="filter-tag">
-                    <label>Filtro Ejemplo</label>
-                    <button class="icon" id="cancel"></button>
+                <label>Filtros activos:</label>
+                <div id="filters">
+                    <filter-tag></filter-tag>
+                    <filter-tag></filter-tag>
                 </div>
-                <div id="filter-tag">
-                    <label>Filtro Ejemplo2</label>
-                    <button class="icon" id="cancel"></button>
-                </div>
+
                 <label id="n-resultados">N Resultados.</label>
             </div>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
-        <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
+            <producto-info></producto-info>
         </section>
     </main>
+    <script type="module" src="activarFiltros.js"></script>
 </body>
 
 </html>

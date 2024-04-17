@@ -46,7 +46,7 @@ section#derecha{
     gap: 16px;
 }
 
-div#filtro{
+div.filtro{
     width: 100%;
     padding-bottom: 24px;
 }
@@ -166,38 +166,15 @@ div#active-filters{
     gap: 8px;
 }
 
-
-div#filter-tag{
-    width: fit-content;
-    padding: 2px;
+div#filters{
     display: flex;
-    gap: 3px;
 }
-
-button.icon {
-    width: 12px;
-    height: 12px;
-    border: none; 
-    outline: none; 
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    align-self: center;
-    justify-self: right;
-  }
-
-  #cancel{
-    background-image: url("/src/assets/X.svg");
-  }
 
   #n-resultados{
     margin-left: auto; 
   }
 
   /*Estilos para tabla*/
-
-  
 
   #columnnames{
     display: flex;

@@ -77,3 +77,7 @@ button {
     background-blend-mode: multiply; 
     filter: invert(1);
   }
+
+  img:hover{
+    cursor: pointer;
+  }

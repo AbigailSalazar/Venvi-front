@@ -9,18 +9,19 @@ export class Navbar extends HTMLElement{
         const shadow = this.attachShadow({mode:"open"})
         this.#agregarEstilo(shadow)
         this.#render(shadow)
+        this.#agregarEventListeners(shadow)
     }
 
     #render(shadow) {
         shadow.innerHTML += `
         <nav>
-        <img src="/src/assets/logo.svg">
+        <img id="logo" src="/src/assets/logo.svg">
         <div id="search">
             <input type="text" placeholder="Busca lo que quieras">
             <button id="btn-search"></button>
         </div>
         <button id="car">
-        <a href="/usuario-productos.html"><button id="user"></a>
+        <button id="user">
     </nav>
         
         `
@@ -33,5 +34,18 @@ export class Navbar extends HTMLElement{
         shadow.appendChild(link)
     }
 
+    #agregarEventListeners(shadow) {
+        shadow.getElementById('logo').addEventListener("click", () => {
+            window.location.href = '/index.html';
+        });
+
+        shadow.getElementById('car').addEventListener("click", () => {
+            window.location.href = '/carrito.html';
+        });
+
+        shadow.getElementById('user').addEventListener("click", () => {
+            window.location.href = '/usuario-productos.html';
+        });
+    }
 
 }
