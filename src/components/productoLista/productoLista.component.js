@@ -9,7 +9,7 @@ export class ProductoLista extends HTMLElement{
         const shadow = this.attachShadow({mode:"open"})
         this.#agregarEstilo(shadow)
         this.#render(shadow)
-        this.#addElminarHandler(shadow,0)
+        this.#addElminarHandler(shadow)
     }
 
     #render(shadow) {
@@ -27,11 +27,21 @@ export class ProductoLista extends HTMLElement{
         `
     }
 
-    #addElminarHandler(shadow,idProducto){
+    #addElminarHandler(shadow){
         let btnEliminar = shadow.querySelector('#eliminar')
         btnEliminar.addEventListener("click",()=>{
+            let idProducto = btnEliminar.parentElement.getAttribute("id");//Obtiene id del producto a eliminar
             let popUp = document.createElement('pop-up')
             shadow.appendChild(popUp)
+
+
+            let btnAccept = popUp.shadowRoot.querySelector('#aceptar');
+            btnAccept.addEventListener("click",()=>{
+                //TODO conectarse a servicio para eliminar de bd
+                popUp.remove()//cierra el pop up
+                btnEliminar.parentElement.remove() //elimina producto de la gui
+            })
+
         })
     }
 

@@ -9,22 +9,23 @@ export class PopUp extends HTMLElement {
         const shadow = this.attachShadow({ mode: "open" })
         this.#agregarEstilo(shadow)
         this.#render(shadow)
-        this.#addElminarHandler(shadow)
+        this.#addExitHandler(shadow)
     }
 
     #render(shadow) {
+
         shadow.innerHTML += `
         <div class="popup" id="warning">
             <img id="exit" src="/src/assets/x-pop-up.svg">
             <div id="content">
                 <img src="/src/assets/alert-octagon.svg">
 
-                <h2>¿Estas seguro de...?</h2>
+                <h2 id="tittle">¿Estas seguro de eliminar este producto?</h2>
             </div>
-            <p>El ... se eliminará por completo</p>
+            <p id="message">El producto se eliminará por completo</p>
             <div id="btn-container">
-                <button id="cancel">No, Cancel</button>
-                <button id="accept">Yes, Confirmar</button>
+                <button id="cancelar">No, Cancel</button>
+                <button id="aceptar">Yes, Confirmar</button>
             </div>
 
         </div>
@@ -32,9 +33,13 @@ export class PopUp extends HTMLElement {
         `
     }
 
-    #addElminarHandler(shadow){
+    #addExitHandler(shadow){
         let btnExit = shadow.querySelector('#exit')
         btnExit.addEventListener("click",()=>{
+            btnExit.parentElement.remove()
+        })
+        let btnCancel = shadow.querySelector('#cancelar')
+        btnCancel.addEventListener("click",()=>{
             btnExit.parentElement.remove()
         })
     }
