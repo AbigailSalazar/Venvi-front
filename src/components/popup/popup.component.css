@@ -1,0 +1,98 @@
+div.popup {
+    display: inline-block;
+    width: 50%;
+    height: fit-content;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 40px;
+    gap: 24px;
+    text-align: center;
+    font-family: 'Public Sans', sans-serif;
+    position: relative;
+    box-shadow:
+        0px 0px 1.3px rgba(0, 0, 0, 0.02),
+        0px 0px 3.1px rgba(0, 0, 0, 0.028),
+        0px 0px 5.9px rgba(0, 0, 0, 0.035),
+        0px 0px 10.5px rgba(0, 0, 0, 0.042),
+        0px 0px 19.6px rgba(0, 0, 0, 0.05),
+        0px 0px 47px rgba(0, 0, 0, 0.07);
+    z-index: 9999;
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    background-color: #FFFF;
+}
+
+h2 {
+    font-size: 22px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    margin-left: 72px;
+    margin-top: 0px;
+    text-align: left;
+    color: #989B9E;
+}
+
+div#content {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    justify-self: center;
+    padding: 10px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+
+}
+
+img#exit {
+    width: 20px;
+    height: 20px;
+    border-radius: 24px;
+    padding: 4px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+div#btn-container {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    gap: 24px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button#cancel {
+    border: 2px solid #4097BF;
+    background-color: #FFFF;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #4097BF;
+    width: 50%;
+    padding: 8px;
+}
+
+button#accept {
+    border: none;
+    background-color: #4097BF;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #FFFF;
+    width: 50%;
+    padding: 8px;
+}

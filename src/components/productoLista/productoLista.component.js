@@ -9,21 +9,30 @@ export class ProductoLista extends HTMLElement{
         const shadow = this.attachShadow({mode:"open"})
         this.#agregarEstilo(shadow)
         this.#render(shadow)
+        this.#addElminarHandler(shadow,0)
     }
 
     #render(shadow) {
         shadow.innerHTML += `
         <section>
-                    <img class="icon" src="/src/assets/x-circle.svg">
+                    <img id="eliminar" class="icon" src="/src/assets/x-circle.svg">
                     <img src="https://placehold.co/72x72?text=image-product">
                     <label>Nombre del producto vendido</label>
                     <label>$$$</label>
                     <label>0</label>
                     <label>Categoria</label>
-                    <img class="icon"  src="/src/assets/edit.svg">
+                    <img id="editar" class="icon"  src="/src/assets/edit.svg">
                </section>
         
         `
+    }
+
+    #addElminarHandler(shadow,idProducto){
+        let btnEliminar = shadow.querySelector('#eliminar')
+        btnEliminar.addEventListener("click",()=>{
+            let popUp = document.createElement('pop-up')
+            shadow.appendChild(popUp)
+        })
     }
 
     #agregarEstilo(shadow) {

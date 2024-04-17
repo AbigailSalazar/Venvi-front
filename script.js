@@ -1,4 +1,5 @@
 import { Navbar } from "./src/components/navbar/navbar.component.js";
+import { PopUp } from "./src/components/popup/popup.component.js";
 import { Producto } from "./src/components/producto/producto.component.js";
 import { ProductoLista } from "./src/components/productoLista/productoLista.component.js";
 import { UsuarioNavSettings } from "./src/components/usuarioaNavSettings/usuarioNavSettings.component.js";
@@ -7,4 +8,5 @@ import { UsuarioNavSettings } from "./src/components/usuarioaNavSettings/usuario
 window.customElements.define("nav-bar",Navbar)
 window.customElements.define("producto-info",Producto)
 window.customElements.define("settings-nav",UsuarioNavSettings)
+window.customElements.define("pop-up",PopUp)
 window.customElements.define("producto-lista",ProductoLista)

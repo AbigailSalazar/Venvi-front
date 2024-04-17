@@ -14,9 +14,9 @@ export class Producto extends HTMLElement{
     #render(shadow) {
         shadow.innerHTML += `
         <div>
-            <img id="producto" src="https://placehold.co/202x172?text=image-product">
-            <h4>Nombre del producto</h4>
-            <p>$$$</p>
+            <img id="imagen" src="https://placehold.co/202x172?text=image-product">
+            <h4 id="nombre">Nombre del producto</h4>
+            <p id="precio">$$$</p>
         </div>
         
         `
