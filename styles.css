@@ -1,10 +1,10 @@
 /*Estilos generales de la aplicación*/
-body{
+body {
     margin: 0;
-    font-family: 'Public Sans',sans-serif;
+    font-family: 'Public Sans', sans-serif;
 }
 
-main{
+main {
     display: flex;
     padding-top: 40px;
     align-items: center;
@@ -13,7 +13,11 @@ main{
     margin: 16px;
 }
 
-button{
+section#dinamic-content{
+    min-width: 40%
+}
+
+button {
     height: 48px;
     width: fit-content;
     padding: 12px;
@@ -29,80 +33,81 @@ button{
     white-space: nowrap;
 }
 
-button:hover{
+button:hover {
     background-color: #265B73;
 }
 
 /*Estilos para los filtros*/
-section#izquierda{
+section#izquierda {
     width: 20%;
     align-self: flex-start;
 }
 
-section#derecha{
+section#derecha {
     width: min-content;
     display: grid;
-    grid-template-columns:auto;
+    grid-template-columns: auto;
     gap: 16px;
 }
 
-div.filtro{
+div.filtro {
     width: 100%;
     padding-bottom: 24px;
 }
 
 
-input[type="radio"]{
+input[type="radio"] {
     margin: 0;
     display: flex;
-    border: none; 
-    outline: none; 
+    border: none;
+    outline: none;
     background-color: #FFFFFF;
-    font-size: 14px; 
-    color: #191C1F; 
+    font-size: 14px;
+    color: #191C1F;
     height: 20px;
     text-align: left;
     width: auto;
     align-items: center;
-    
+
 }
 
-input[type="radio"]:checked + label {
-    font-weight: bold; 
-  }
+input[type="radio"]:checked+label {
+    font-weight: bold;
+}
 
-  input[type="number"]{
-    border: 1px solid #E4E7E9; 
-    outline: none; 
+input[type="number"] {
+    border: 1px solid #E4E7E9;
+    outline: none;
     background-color: #FFFFFF;
-    font-size: 14px; 
-    color: #77878F; 
+    font-size: 14px;
+    color: #77878F;
     height: 40px;
     width: 100%;
     text-align: left;
     border-radius: 3px;
     margin-bottom: 8px;
     padding: 8px;
-    
+
 }
 
-ul{
+ul {
     padding: 0;
-    margin: 0 ;
+    margin: 0;
 }
-li{
+
+li {
     display: flex;
     width: fit-content;
     align-items: center;
     text-indent: 0%;
 }
 
-input[type="radio"] + label {
-    margin-left: 8px; 
-    width: auto; 
+input[type="radio"]+label {
+    margin-left: 8px;
+    width: auto;
 }
 
-label{
+label {
     display: flex;
     color: #475156;
     font-size: 14px;
@@ -111,18 +116,18 @@ label{
 
 }
 
-h5{
+h5 {
     color: #191C1F;
     font-size: 16px;
     font-weight: 500;
 }
 
-div#rango{
+div#rango {
     display: flex;
     gap: 12px;
 }
 
-hr{
+hr {
     margin-top: 12px;
     margin-bottom: 12px;
     color: #E4E7E9;
@@ -132,7 +137,7 @@ hr{
 /*Estilos para combobox para ordenar productos*/
 
 
-div#sort{
+div#sort {
     display: flex;
     gap: 22px;
     grid-column: span 4;
@@ -140,22 +145,22 @@ div#sort{
 }
 
 
-select{
-    border: 1px solid #E4E7E9; 
-    outline: none; 
+select {
+    border: 1px solid #E4E7E9;
+    outline: none;
     background-color: #FFFFFF;
-    font-size: 14px; 
-    color: #77878F; 
+    font-size: 14px;
+    color: #77878F;
     height: 40px;
     width: 192px;
     text-align: left;
     border-radius: 3px;
     padding: 8px;
-    
+
 }
 
 /*Estilos para los filtros activos*/
-div#active-filters{
+div#active-filters {
     display: flex;
     margin-top: 8px;
     background-color: #F2F2F2;
@@ -166,50 +171,10 @@ div#active-filters{
     gap: 8px;
 }
 
-div#filters{
+div#filters {
     display: flex;
 }
 
-  #n-resultados{
-    margin-left: auto; 
-  }
-
-  /*Estilos para tabla*/
-
-  #columnnames{
-    display: flex;
-    width: 100%;
-    background-color: #F2F2F2;
-    height: 38px;
-    justify-content: space-around;
-  }
-  #columnnames>label{
-    padding: 4px 3% 4px 3%;
-    gap: 16px;
-    font-size: 12px;
-
-  }
-  div.tabla{
-    display: block;
-    width: 100%;
-    margin: right 5%;;
-  }
-
-.tabla> h3{
-    height: 20px;
-    font-size: 12px;
-    border: 1px solid #E4E7E9; 
-    outline: none; 
-    border-radius: 3px;
-    margin: 0;
-    padding: 15px;
-
-}
-#content{
-    border: 1px solid #E4E7E9; 
-    outline: none; 
-    border-radius: 3px;
-    padding: 25px 50px 25px 50px;
-    display: block;
-  
+#n-resultados {
+    margin-left: auto;
 }

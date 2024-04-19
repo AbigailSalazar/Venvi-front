@@ -16,26 +16,11 @@
         <section class="productos" id="izquierda">
             <settings-nav></settings-nav>
         </section>
-        <div class="tabla">
-            <h3>ADMINISTRACIÓN DE PRODUCTOS EN VENTA</h3>
-            <div id="columnnames">
-                <label></label>
-                <label></label>
-             <label>PRODUCTO</label>
-             <label>PRECIO</label>
-             <label>CANTIDAD</label>
-             <label>CATEGORIAS</label>
-             <label></label>  
-             <label></label>
-             </div>
-            <div id="content">
-               <producto-lista id="1"></producto-lista>
-               <producto-lista  id="2"></producto-lista>
-               <producto-lista  id="3"></producto-lista>
-            </div>
-        </div>
-        <button>agregar producto</button>
+        <section id="dinamic-content">
+            <lista-productos></lista-productos>
+        </section>
+        <button id="add-producto">agregar producto</button>
     </main>
 </body>
-
+<script type="module" src="cambiarContenido.js"></script>
 </html>

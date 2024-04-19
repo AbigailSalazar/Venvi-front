@@ -1,0 +1,38 @@
+
+#columnnames{
+    display: flex;
+    width: 100%;
+    background-color: #F2F2F2;
+    height: 38px;
+    justify-content: space-around;
+  }
+  #columnnames>label{
+    padding: 4px 3% 4px 3%;
+    gap: 16px;
+    font-size: 12px;
+
+  }
+  div.tabla{
+    display: block;
+    width: 100%;
+    margin: right 5%;;
+  }
+
+.tabla> h3{
+    height: 20px;
+    font-size: 12px;
+    border: 1px solid #E4E7E9; 
+    outline: none; 
+    border-radius: 3px;
+    margin: 0;
+    padding: 15px;
+
+}
+div#content{
+    border: 1px solid #E4E7E9; 
+    outline: none; 
+    border-radius: 3px;
+    padding: 25px 50px 25px 50px;
+    display: block;
+  
+}

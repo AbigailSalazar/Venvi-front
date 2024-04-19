@@ -1,4 +1,6 @@
 import { FilterTag } from "./src/components/filterTag/filterTag.component.js";
+import { FormularioProducto } from "./src/components/formularioProducto/formularioProducto.component.js";
+import { ListaProductos } from "./src/components/listaProductos/listaProductos.component.js";
 import { Navbar } from "./src/components/navbar/navbar.component.js";
 import { PopUp } from "./src/components/popup/popup.component.js";
 import { Producto } from "./src/components/producto/producto.component.js";
@@ -11,4 +13,6 @@ window.customElements.define("producto-info",Producto)
 window.customElements.define("settings-nav",UsuarioNavSettings)
 window.customElements.define("pop-up",PopUp)
 window.customElements.define("producto-lista",ProductoLista)
+window.customElements.define("lista-productos",ListaProductos)
 window.customElements.define("filter-tag",FilterTag)
+window.customElements.define("form-producto",FormularioProducto)
