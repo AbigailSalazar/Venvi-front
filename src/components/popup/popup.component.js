@@ -20,9 +20,12 @@ export class PopUp extends HTMLElement {
             <div id="content">
                 <img src="/src/assets/alert-octagon.svg">
 
+                <div>
                 <h2 id="tittle">¿Estas seguro de eliminar este producto?</h2>
+                <p id="message">El producto se eliminará por completo</p>
+                </div>
             </div>
-            <p id="message">El producto se eliminará por completo</p>
+            
             <div id="btn-container">
                 <button id="cancelar">No, Cancel</button>
                 <button id="aceptar">Yes, Confirmar</button>

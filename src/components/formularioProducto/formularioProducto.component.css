@@ -23,10 +23,17 @@ h3{
     padding: 8px;
 }
 
-input{
+input, textarea{
+    outline: none;
     border: 1px solid #E4E7E9; 
     border-radius: 2px;   
     padding: 8px;
+    font-family: 'Public Sans', sans-serif;
+    transition: border-color 0.3s;
+}
+
+input:focus,  textarea:focus{
+    border: 1px solid #4097BF; 
 }
 
 form{
@@ -55,7 +62,7 @@ button.add{
     width: 48px;
     height: 48px;
     border-radius: 100%;
-    font-size: 12px;
+    font-size: 25px;
     color: #FFFF;
     background-color: #4097BF;
     border: none;

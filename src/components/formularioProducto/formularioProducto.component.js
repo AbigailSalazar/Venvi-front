@@ -40,7 +40,7 @@ export class FormularioProducto extends HTMLElement {
             <input type="text" placeholder="Categoria1, Categoria2...">
     
             <label for="descripcion">Descripción</label>
-            <input type="text" placeholder="Incluye más detalles para tu producto">
+            <textarea type="text" placeholder="Incluye más detalles para tu producto"></textarea>
 
 
         </form>
@@ -62,7 +62,22 @@ export class FormularioProducto extends HTMLElement {
         shadow.appendChild(link)
     }
 
-    #addPublicarHandler(shadow) {
+    #addPublicarHandler() {
+
+        //TODO: usar servicio para guardar producto
+
+        //Para cambiar a la lista de productos
+
+        const section = document.querySelector('#dinamic-content')
+        const btnSave = document.querySelector('#save-producto')
+
+        btnSave.addEventListener('click', () => {
+            btnSave.setAttribute('id', "add-producto")
+            btnSave.textContent = 'añadir producto'
+            section.innerHTML = '';
+            const formulario = document.createElement('lista-productos')
+            section.appendChild(formulario)
+        })
 
     }
 

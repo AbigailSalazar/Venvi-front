@@ -47,4 +47,13 @@ div:hover{
     cursor: pointer;
 }
 
+div.selected{
+    background-color: #4097BF;
+    color: white;
+}
+
+div.selected img{
+    filter:  invert(100%) sepia(0%) saturate(7482%) hue-rotate(95deg) brightness(101%);
+}
+
 
