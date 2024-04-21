@@ -17,7 +17,7 @@ form {
     gap: 20px;
     max-width: 300px;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 
 label {
@@ -36,4 +36,11 @@ button {
 
 button:hover {
     background-color: #3079A6;
+}
+
+
+img{
+    filter: invert();
+    margin-right: 15px;
+    margin-bottom: 15px;
 }

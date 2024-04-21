@@ -17,7 +17,7 @@ form {
     gap: 20px;
     max-width: 300px;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 
 label {
@@ -36,4 +36,20 @@ button {
 
 button:hover {
     background-color: #3079A6;
+}
+
+button#registrar{
+    border: 2px solid #4097BF;
+    background-color: #FFFF;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #4097BF;
+    width: 50%;
+    padding: 8px;
+}
+
+img{
+    filter: invert();
+    margin-right: 15px;
+    margin-bottom: 15px;
 }

@@ -1,3 +1,4 @@
+import { LocalStorageService } from "../../services/LocalStorage.service.js"
 
 export class Navbar extends HTMLElement{
 
@@ -44,7 +45,13 @@ export class Navbar extends HTMLElement{
         });
 
         shadow.getElementById('user').addEventListener("click", () => {
-            window.location.href = '/usuario-productos.html';
+            const token = LocalStorageService.getItem('jwt')
+            if(token){
+                window.location.href = '/usuario-productos.html';
+            } 
+            else{
+                window.location.href = '../src/pages/login/login.html';
+            }
         });
     }
 
