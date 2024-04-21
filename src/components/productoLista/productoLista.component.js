@@ -11,7 +11,6 @@ export class ProductoLista extends HTMLElement {
         this.#render(shadow)
         this.#addElminarHandler(shadow)
         this.#addEditarHandler(shadow)
-        this.#addNuevoProductoHandler(shadow)
         this.#cargarProducto(shadow)
     }
 
@@ -42,28 +41,12 @@ export class ProductoLista extends HTMLElement {
             btnAccept.addEventListener("click", () => {
                 //TODO conectarse a servicio para eliminar de bd
                 popUp.remove()//cierra el pop up
-                btnEliminar.parentElement.remove() //elimina producto de la gui
+                this.remove() //elimina producto de la gui
             })
 
         })
     }
 
-    #addNuevoProductoHandler() {
-
-        //Para cambiar a la lista de productos
-
-        const section = document.querySelector('#dinamic-content')
-        const btnSave = document.querySelector('#add-producto')
-
-        btnSave.addEventListener('click', () => {
-            btnSave.setAttribute('id', "save-producto")
-            btnSave.textContent = 'publicar producto'
-            section.innerHTML = '';
-            const formulario = document.createElement('form-producto')
-            section.appendChild(formulario)
-        })
-
-    }
 
     #cargarProducto(shadow){
         //TODO: cargar datos del producto desde el servicio

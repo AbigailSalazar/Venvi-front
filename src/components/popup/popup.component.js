@@ -39,11 +39,11 @@ export class PopUp extends HTMLElement {
     #addExitHandler(shadow){
         let btnExit = shadow.querySelector('#exit')
         btnExit.addEventListener("click",()=>{
-            btnExit.parentElement.remove()
+            this.remove()
         })
         let btnCancel = shadow.querySelector('#cancelar')
         btnCancel.addEventListener("click",()=>{
-            btnExit.parentElement.remove()
+            this.remove()
         })
     }
 

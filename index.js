@@ -1,3 +1,4 @@
+import { ProductoService } from "./src/services/productos.service.js"
 
 const inputPrecioMin = document.querySelector('#min-precio');
 const inputPrecioMax = document.querySelector('#max-precio');
@@ -52,8 +53,25 @@ btnAplicarFiltros.addEventListener('click', () => {
         console.log('Añadiendo rango filtro');
     }
 
-
-    // Agregar filter-tag al contenedor de filtros activos
-
-
 });
+
+
+//obtener productos de servicio y agregarlos
+const sectionProductos = document.getElementById('productos')
+const lblnResultados = document.getElementById('n-resultados')
+
+const productoService = new ProductoService()
+const productos = await productoService.getProductos()
+
+//mostrar num de resultados
+lblnResultados.innerHTML=`<strong>${productos.length}</strong> &nbsp;Resultados`
+
+productos.map((producto)=>{
+    const productoElement = document.createElement('producto-info')
+    productoElement.setAttribute('id',producto._id)
+    productoElement.setAttribute('nombre',producto.nombre)
+    productoElement.setAttribute('precio',producto.precio)
+    productoElement.setAttribute('foto',"") //TODO: obtener foto
+
+    sectionProductos.appendChild(productoElement)
+})

@@ -12,11 +12,14 @@ export class Producto extends HTMLElement{
     }
 
     #render(shadow) {
+        const nombre = this.getAttribute('nombre')
+        const precio=this.getAttribute('precio')
+        const foto = this.getAttribute('foto')
         shadow.innerHTML += `
         <div>
-            <img id="imagen" src="https://placehold.co/202x172?text=image-product">
-            <h4 id="nombre">Nombre del producto</h4>
-            <p id="precio">$$$</p>
+            <img id="foto" src="https://placehold.co/202x172?text=image-product">
+            <h4 id="nombre">${nombre}</h4>
+            <p id="precio">$${precio}</p>
         </div>
         
         `

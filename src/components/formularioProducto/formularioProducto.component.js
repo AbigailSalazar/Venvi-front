@@ -1,3 +1,7 @@
+import { Producto } from "../../objects/Producto.js"
+import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { JwtService } from "../../services/jwt.service.js"
+import { ProductoService } from "../../services/productos.service.js"
 
 export class FormularioProducto extends HTMLElement {
 
@@ -22,25 +26,25 @@ export class FormularioProducto extends HTMLElement {
     
         <form>
             <label>Nombre</label>
-            <input type="text" placeholder="Nombra tu producto">
+            <input type="text" name="nombre"  id="nombre" placeholder="Nombra tu producto">
 
             <div class="divided">
             <div class="campo">
                 <label for="cantidad">Cantidad</label>
-                <input type="number" min="0" placeholder="0">
+                <input type="number" id="cantidad" name="cantidad" min="0" placeholder="0">
             </div>
             <div class="campo">
                 <label for="precio">Precio</label>
-                    <input type="number" min="0">
+                    <input id="precio" name="precio" type="number" min="0">
             </div>
                    
                     
             </div>
             <label for="categorias">Categorias</label>
-            <input type="text" placeholder="Categoria1, Categoria2...">
+            <input type="text"  id="categorias" name="categorias" placeholder="Categoria1, Categoria2...">
     
             <label for="descripcion">Descripción</label>
-            <textarea type="text" placeholder="Incluye más detalles para tu producto"></textarea>
+            <textarea type="text" id="descripcion" name="descripcion" placeholder="Incluye más detalles para tu producto"></textarea>
 
 
         </form>
@@ -62,21 +66,36 @@ export class FormularioProducto extends HTMLElement {
         shadow.appendChild(link)
     }
 
-    #addPublicarHandler() {
-
-        //TODO: usar servicio para guardar producto
-
-        //Para cambiar a la lista de productos
+    #addPublicarHandler(shadow) {
 
         const section = document.querySelector('#dinamic-content')
         const btnSave = document.querySelector('#save-producto')
 
-        btnSave.addEventListener('click', () => {
+        btnSave.addEventListener('click', async () => {
+
+            //obtener datos de producto
+            const form = shadow.querySelector('form')
+            const nombre = form.nombre.value
+            const precio = form.precio.value
+            const cantidad = form.cantidad.value
+            const categorias = form.categorias.value.split(',') 
+            const descripcion = form.descripcion.value
+
+            //Guardar producto
+            const productoService = new ProductoService()
+            const usuarioId=JwtService.decode(LocalStorageService.getItem('jwt')).id
+
+            const producto= new Producto(usuarioId,nombre,["ejemplo","ejemplo2"],precio,cantidad,descripcion,categorias)    
+                 
+            const respuesta = await productoService.addProductos(producto)
+            console.log('respuesta: ',respuesta);
+
+            //Para cambiar a la lista de productos
             btnSave.setAttribute('id', "add-producto")
             btnSave.textContent = 'añadir producto'
             section.innerHTML = '';
-            const formulario = document.createElement('lista-productos')
-            section.appendChild(formulario)
+            const listaProductos = document.createElement('lista-productos')
+            section.appendChild(listaProductos)
         })
 
     }

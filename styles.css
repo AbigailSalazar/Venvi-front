@@ -38,12 +38,12 @@ button:hover {
 }
 
 /*Estilos para los filtros*/
-section#izquierda {
+section#menu-vertical {
     width: 20%;
     align-self: flex-start;
 }
 
-section#derecha {
+section#productos {
     width: min-content;
     display: grid;
     grid-template-columns: auto;

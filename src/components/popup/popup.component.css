@@ -8,12 +8,11 @@ div.popup {
     gap: 24px;
     text-align: left;
     font-family: 'Public Sans', sans-serif;
-    position: relative;
     box-shadow:
         0px 0px 1.3px rgba(0, 0, 0, 0.02),
         0px 0px 3.1px rgba(0, 0, 0, 0.028),
         0px 0px 5.9px rgba(0, 0, 0, 0.035),
-        0px 0px 10.5px rgba(0, 0, 0, 0.042),
+        0px 0px 10.5px rgba(253, 232, 232, 0.042),
         0px 0px 19.6px rgba(0, 0, 0, 0.05),
         0px 0px 47px rgba(0, 0, 0, 0.07);
     z-index: 9999;
@@ -22,6 +21,7 @@ div.popup {
     left: 50%; 
     transform: translate(-50%, -50%);
     background-color: #FFFF;
+    transition: transform 1s;
 }
 
 h2 {
