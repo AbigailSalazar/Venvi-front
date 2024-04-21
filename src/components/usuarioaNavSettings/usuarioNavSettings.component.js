@@ -1,3 +1,4 @@
+import { LocalStorageService } from "../../services/LocalStorage.service.js"
 
 export class UsuarioNavSettings extends HTMLElement {
 
@@ -31,8 +32,8 @@ export class UsuarioNavSettings extends HTMLElement {
                     <img class="icono-config" src="/src/assets/Gear.svg">
                     <label>Configuración</label>
                 </div>
-                <div id="opcion-signout">
-                    <img class="icono-signout" src="/src/assets/SignOut.svg">
+                <div id="opcion-logout">
+                    <img class="icono-logout" src="/src/assets/SignOut.svg">
                     <label>Cerrar sesión</label>
                 </div>
             </section>
@@ -52,6 +53,11 @@ export class UsuarioNavSettings extends HTMLElement {
             section.appendChild(formulario)
         })
 
+        const opcionlogout = shadow.querySelector('#opcion-logout');
+        opcionlogout.addEventListener('click',()=>{
+            LocalStorageService.deleteItem('jwt')
+            window.location.href = '/index.html';
+        })  
 
         // opciones.forEach(opcion => {
         //     opcion.addEventListener('click', () => {

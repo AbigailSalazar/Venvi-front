@@ -12,4 +12,8 @@ export class LocalStorageService{
         const encryptedData=localStorage.getItem(key)
         return encryptedData
     }
+
+    static deleteItem(key){
+        localStorage.removeItem(key)
+    }
 }
