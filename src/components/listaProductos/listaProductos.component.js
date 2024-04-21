@@ -29,9 +29,6 @@ export class ListaProductos extends HTMLElement {
          <label></label>
          </div>
         <div id="content">
-           <producto-lista id="1"></producto-lista>
-           <producto-lista  id="2"></producto-lista>
-           <producto-lista  id="3"></producto-lista>
         </div>
     </div>
         

@@ -28,7 +28,7 @@ export class ProductoService {
 
         //TODO: registrar categorias y obtener los objetos para agregarlas al producto
         const myHeaders = new Headers();
-        
+
         myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
         myHeaders.append("Content-Type", "application/json");
 
@@ -38,7 +38,7 @@ export class ProductoService {
             "fotos": producto.fotos,
             "precio": producto.precio,
             "cantidadDisponible": producto.cantidadDisponible,
-            "descripcion":producto.descripcion
+            "descripcion": producto.descripcion
         });
 
         const requestOptions = {
@@ -56,21 +56,40 @@ export class ProductoService {
         }
     }
 
-    async getByUser(){
-        const token =LocalStorageService.getItem('jwt')
-        const idUsuario= JwtService.decode(token).id
+    async getByUser() {
+        const token = LocalStorageService.getItem('jwt')
+        const idUsuario = JwtService.decode(token).id
         const requestOptions = {
             method: "GET",
             redirect: "follow"
-          };
-          
+        };
+
         try {
-            const response = await fetch(this.#urlServicio+"/vendedores/"+idUsuario, requestOptions)
-            const productos =  await response.json();
+            const response = await fetch(this.#urlServicio + "/vendedores/" + idUsuario, requestOptions)
+            const productos = await response.json();
             return productos
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
-        
+
+    }
+
+    async deleteById(idProducto) {
+        const token = LocalStorageService.getItem('jwt')
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", token);
+
+        const requestOptions = {
+            method: "DELETE",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
+            return response
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
     }
 }
