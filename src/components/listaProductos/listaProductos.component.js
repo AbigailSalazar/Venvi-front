@@ -1,14 +1,17 @@
+import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { ProductoService } from "../../services/productos.service.js"
 
-export class ListaProductos extends HTMLElement{
+export class ListaProductos extends HTMLElement {
 
     constructor() {
         super()
     }
 
-    connectedCallback(){
-        const shadow = this.attachShadow({mode:"open"})
+    connectedCallback() {
+        const shadow = this.attachShadow({ mode: "open" })
         this.#agregarEstilo(shadow)
         this.#render(shadow)
+        this.#cargarProductos(shadow)
     }
 
     #render(shadow) {
@@ -37,9 +40,28 @@ export class ListaProductos extends HTMLElement{
 
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
-        link.setAttribute("rel","stylesheet")
-        link.setAttribute("href","../src/components/listaProductos/listaProductos.component.css")
+        link.setAttribute("rel", "stylesheet")
+        link.setAttribute("href", "../src/components/listaProductos/listaProductos.component.css")
         shadow.appendChild(link)
+    }
+
+    async #cargarProductos(shadow) {
+        //obtener productos de servicio y agregarlos
+        const listaProductos = shadow.querySelector('#content')
+
+        const productoService = new ProductoService()
+        const productos = await productoService.getByUser()
+
+        productos.map((producto) => {
+            const productoElement = document.createElement('producto-lista')
+            productoElement.setAttribute('id', producto._id)
+            productoElement.setAttribute('imagen',"") //TODO
+            productoElement.setAttribute('nombre', producto.nombre)
+            productoElement.setAttribute('precio', producto.precio)
+            productoElement.setAttribute('cantidad',producto.cantidadDisponible)
+
+            listaProductos.appendChild(productoElement)
+        })
     }
 
 }

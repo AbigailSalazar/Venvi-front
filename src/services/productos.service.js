@@ -1,4 +1,5 @@
 import { LocalStorageService } from "./LocalStorage.service.js";
+import { JwtService } from "./jwt.service.js"
 
 export class ProductoService {
     #urlServicio = 'http://localhost:3000/api/productos'
@@ -48,11 +49,28 @@ export class ProductoService {
         };
 
         try {
-            console.log('producto a agregar:',raw);
             const response = await fetch(this.#urlServicio, requestOptions);
             return response;
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
+    }
+
+    async getByUser(){
+        const token =LocalStorageService.getItem('jwt')
+        const idUsuario= JwtService.decode(token).id
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+          };
+          
+        try {
+            const response = await fetch(this.#urlServicio+"/vendedores/"+idUsuario, requestOptions)
+            const productos =  await response.json();
+            return productos
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+        
     }
 }

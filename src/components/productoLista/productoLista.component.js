@@ -15,13 +15,19 @@ export class ProductoLista extends HTMLElement {
     }
 
     #render(shadow) {
+        const imagen=this.getAttribute('imagen')
+        const nombre=this.getAttribute('nombre')
+        const precio=this.getAttribute('precio')
+        const cantidad=this.getAttribute('cantidad')
+        const categorias=this.getAttribute('categorias')
+
         shadow.innerHTML += `
         <section>
                     <img id="eliminar" class="icon" src="/src/assets/x-circle.svg">
                     <img id="imagen" src="https://placehold.co/72x72?text=image-product">
-                    <label id="nombre">Nombre del producto vendido</label>
-                    <label id="precio">$$$</label>
-                    <label id="cantidad">0</label>
+                    <label id="nombre">${nombre}</label>
+                    <label id="precio">$${precio}</label>
+                    <label id="cantidad">${cantidad}</label>
                     <label id="categorias">Categoria</label>
                     <img id="editar" class="icon"  src="/src/assets/edit.svg">
                </section>
