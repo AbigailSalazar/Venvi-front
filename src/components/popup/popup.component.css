@@ -21,7 +21,6 @@ div.popup {
     left: 50%; 
     transform: translate(-50%, -50%);
     background-color: #FFFF;
-    transition: transform 1s;
 }
 
 h2 {

@@ -32,6 +32,10 @@ input, textarea{
     transition: border-color 0.3s;
 }
 
+input.error{
+    border-color:#BF4040;
+}
+
 input:focus,  textarea:focus{
     border: 1px solid #4097BF; 
 }

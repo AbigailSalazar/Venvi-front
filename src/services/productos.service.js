@@ -74,6 +74,52 @@ export class ProductoService {
 
     }
 
+    async getById(idProducto){
+
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
+            const producto = await response.json();
+            console.log('producto obtenido: ', producto);
+            return producto;
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
+
+    async editById(idProducto, producto) {
+        const token = LocalStorageService.getItem('jwt')
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", token);
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            "nombre": producto.nombre,
+            "fotos": producto.fotos,
+            "precio": producto.precio,
+            "cantidadDisponible": producto.cantidadDisponible,
+            "descripcion": producto.descripcion //TODO: categorias
+        });
+
+        const requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
+            return response
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
+
     async deleteById(idProducto) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();
@@ -86,7 +132,7 @@ export class ProductoService {
         };
 
         try {
-            const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
+            const response = await fetch(this.#urlServicio + "/" + idProducto, requestOptions)
             return response
         } catch (error) {
             console.error(error); //TODO: manejar los errores

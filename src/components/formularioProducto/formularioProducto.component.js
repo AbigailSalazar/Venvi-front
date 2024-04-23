@@ -7,6 +7,7 @@ export class FormularioProducto extends HTMLElement {
 
     constructor() {
         super()
+        this.productoService = new ProductoService()
     }
 
     connectedCallback() {
@@ -14,28 +15,33 @@ export class FormularioProducto extends HTMLElement {
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.#addPublicarHandler(shadow)
-        this.#addFotoHandler(shadow)
     }
 
-    #render(shadow) {
-        //cargar nombre
-        const nombre = this.getAttribute("name")
+    async #render(shadow) {
+        //cargar info producto para editar
+        const idProducto = this.getAttribute('idProducto')
+        let producto
+        if (idProducto) {
+            producto = await this.productoService.getById(idProducto)
+        }
+
+
         shadow.innerHTML += `
         <section class="bordered-container">
         <h3>Nuevo producto</h3>
     
         <form>
             <label>Nombre</label>
-            <input type="text" name="nombre"  id="nombre" placeholder="Nombra tu producto">
+            <input type="text" name="nombre"  id="nombre" placeholder="Nombra tu producto"  required value="${producto ? producto.nombre : ""}">
 
             <div class="divided">
             <div class="campo">
                 <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidad" min="0" placeholder="0">
+                <input type="number" id="cantidad" name="cantidad" min="0" placeholder="0" required value="${producto ? producto.cantidadDisponible : 0}">
             </div>
             <div class="campo">
                 <label for="precio">Precio</label>
-                    <input id="precio" name="precio" type="number" min="0">
+                    <input id="precio" name="precio" type="number" min="0" required value="${producto ? producto.precio : 0}">
             </div>
                    
                     
@@ -44,7 +50,7 @@ export class FormularioProducto extends HTMLElement {
             <input type="text"  id="categorias" name="categorias" placeholder="Categoria1, Categoria2...">
     
             <label for="descripcion">Descripción</label>
-            <textarea type="text" id="descripcion" name="descripcion" placeholder="Incluye más detalles para tu producto"></textarea>
+            <textarea type="text" id="descripcion" name="descripcion" placeholder="Incluye más detalles para tu producto" required>${producto ? producto.descripcion : ""}</textarea>
 
 
         </form>
@@ -57,6 +63,7 @@ export class FormularioProducto extends HTMLElement {
         </div>
     </section>
         `
+        this.#addFotoHandler(shadow)
     }
 
     #agregarEstilo(shadow) {
@@ -71,24 +78,29 @@ export class FormularioProducto extends HTMLElement {
         const section = document.querySelector('#dinamic-content')
         const btnSave = document.querySelector('#save-producto')
 
+
         btnSave.addEventListener('click', async () => {
+            const idProducto = this.getAttribute('idProducto')
 
             //obtener datos de producto
             const form = shadow.querySelector('form')
             const nombre = form.nombre.value
             const precio = form.precio.value
             const cantidad = form.cantidad.value
-            const categorias = form.categorias.value.split(',') 
+            const categorias = form.categorias.value.split(',')
             const descripcion = form.descripcion.value
-
-            //Guardar producto
-            const productoService = new ProductoService()
-            const usuarioId=JwtService.decode(LocalStorageService.getItem('jwt')).id
-
-            const producto= new Producto(usuarioId,nombre,["ejemplo","ejemplo2"],precio,cantidad,descripcion,categorias)    
-                 
-            const respuesta = await productoService.addProductos(producto)
-            console.log('respuesta: ',respuesta);
+            
+            const usuarioId = JwtService.decode(LocalStorageService.getItem('jwt')).id
+            const producto = new Producto(usuarioId, nombre, ["ejemplo", "ejemplo2"], precio, cantidad, descripcion, categorias)
+            if (idProducto) {//Se esta editando
+                const respuesta = await this.productoService.editById(idProducto,producto)
+                console.log('respuesta: ', respuesta);
+            }
+            else {
+                //Guardar producto
+                const respuesta = await this.productoService.addProductos(producto)
+                console.log('respuesta: ', respuesta);
+            }
 
             //Para cambiar a la lista de productos
             btnSave.setAttribute('id', "add-producto")
