@@ -1,5 +1,7 @@
 import { Producto } from "../../objects/Producto.js"
+import { CategoriaProducto } from "../../objects/CategoriaProducto.js"
 import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { CategoriaService } from "../../services/categorias.service.js"
 import { JwtService } from "../../services/jwt.service.js"
 import { ProductoService } from "../../services/productos.service.js"
 
@@ -8,6 +10,8 @@ export class FormularioProducto extends HTMLElement {
     constructor() {
         super()
         this.productoService = new ProductoService()
+        this.categoriaService = new CategoriaService();
+
     }
 
     connectedCallback() {
@@ -91,7 +95,16 @@ export class FormularioProducto extends HTMLElement {
             const descripcion = form.descripcion.value
             
             const usuarioId = JwtService.decode(LocalStorageService.getItem('jwt')).id
-            const producto = new Producto(usuarioId, nombre, ["ejemplo", "ejemplo2"], precio, cantidad, descripcion, categorias)
+
+            //Crear categorias
+            const categoriasObjetos=[]
+            categorias.map(async categoria=>{
+                
+                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria,categoria))
+                categoriasObjetos.push(objCategoria)
+            })
+
+            const producto = new Producto(usuarioId, nombre, ["ejemplo", "ejemplo2"], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
                 const respuesta = await this.productoService.editById(idProducto,producto)
                 console.log('respuesta: ', respuesta);

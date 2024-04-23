@@ -1,3 +1,4 @@
+import { CategoriaService } from "./src/services/categorias.service.js";
 import { ProductoService } from "./src/services/productos.service.js"
 
 const inputPrecioMin = document.querySelector('#min-precio');
@@ -75,3 +76,29 @@ productos.map((producto)=>{
 
     sectionProductos.appendChild(productoElement)
 })
+
+//obtener categorias
+
+const categoriaService = new CategoriaService();
+
+// Obtener la lista de categorías
+categoriaService.getCategorias().then(categorias => {
+    const categoriaList = document.querySelector('.categoria-list');
+    categoriaList.innerHTML = '';
+
+    categorias.forEach(categoria => {
+        const li = document.createElement('li');
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.id = categoria.nombre;
+        input.name = 'categoria';
+        input.value = categoria.nombre;
+        const label = document.createElement('label');
+        label.htmlFor = categoria.nombre;
+        label.textContent = categoria.nombre;
+
+        li.appendChild(input);
+        li.appendChild(label);
+        categoriaList.appendChild(li);
+    });
+});
