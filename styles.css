@@ -14,7 +14,7 @@ main {
 }
 
 section#dinamic-content{
-    min-width: 40%
+    min-width: fit-content
 }
 
 button {

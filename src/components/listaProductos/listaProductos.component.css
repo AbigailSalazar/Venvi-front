@@ -22,8 +22,11 @@
     height: 20px;
     font-size: 12px;
     border: 1px solid #E4E7E9; 
+    border-bottom: none;
     outline: none; 
     border-radius: 3px;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
     margin: 0;
     padding: 15px;
 
@@ -32,7 +35,10 @@ div#content{
     border: 1px solid #E4E7E9; 
     outline: none; 
     border-radius: 3px;
-    padding: 25px 50px 25px 50px;
+    border-top-left-radius: 0%;
+    border-top-right-radius: 0%;
+    border-top: none;
+    width: 100%;
     display: block;
   
 }

@@ -1,6 +1,6 @@
 section{
     display: flex;
-    width:100%;
+    width:auto;
     height: 72px;
     gap: 24px;
     margin-bottom: 8px;
