@@ -1,4 +1,6 @@
 import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { JwtService } from "../../services/jwt.service.js"
+import { UsuarioService } from "../../services/usuarios.service.js"
 
 export class UsuarioNavSettings extends HTMLElement {
 
@@ -79,12 +81,18 @@ export class UsuarioNavSettings extends HTMLElement {
             window.location.href = '/index.html';
         })  
 
-        // opciones.forEach(opcion => {
-        //     opcion.addEventListener('click', () => {
-        //         opciones.forEach(o => o.classList.remove('selected'));
-        //         opcion.classList.add('selected');
-        //     });
-        // });
+        const opcionConfig = shadow.querySelector('#opcion-config');
+        opcionConfig.addEventListener('click',async ()=>{
+            //obtenre info de usuario
+            const token = LocalStorageService.getItem('jwt')
+            const idUsuario = JwtService.decode(token).id
+            const usuarioService = new UsuarioService()
+            const usuario = await usuarioService.getById(idUsuario)
+            console.log('Usuario info: ',usuario); //TODO: cambiar de pagina a form para editar datos 
+        })  
+
+
+
     }
 
     #agregarEstilo(shadow) {
