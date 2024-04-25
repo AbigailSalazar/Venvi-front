@@ -11,7 +11,7 @@ export class UsuarioService {
         myHeaders.append("Content-Type", "application/json");
         const raw = JSON.stringify({
             "nombre": usuario.nombre,
-            "foto": usuario.foto,
+            "foto": "",
             "password": usuario.password,
             "correo": usuario.correo,
             "rating": usuario.rating
@@ -28,7 +28,7 @@ export class UsuarioService {
             .then((result) => {
                 console.log(result);
             })
-            .then(() => { window.location.href = './login/login.html'; })//regresar al login
+            .then(() => { window.location.href = '../login/login.html'; })//regresar al login
             .catch((error) => console.error(error));
     }
 

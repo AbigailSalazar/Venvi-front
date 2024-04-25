@@ -34,7 +34,21 @@ export class FilterTag extends HTMLElement{
     #addExitHandler(shadow){
         let btnCancel = shadow.querySelector('#cancel')
         btnCancel.addEventListener("click",()=>{
-            btnCancel.parentElement.remove()
+            //deseleccionar el filtro
+            const radioButton = document.getElementById(this.getAttribute('name'));
+            if(radioButton){
+                radioButton.checked=false
+            }
+            else{
+                const inputPrecioMin = document.querySelector('#min-precio')
+                const inputPrecioMax = document.querySelector('#max-precio')
+                inputPrecioMin.value !== '' 
+                inputPrecioMax.value !== ''
+            }
+            //activar el boton de aplicar filtros
+            const btnAplicarFiltros = document.querySelector('#aplicar-filtros');
+            btnAplicarFiltros.click()
+            this.remove()
         })
     }
 }

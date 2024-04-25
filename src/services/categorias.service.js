@@ -46,6 +46,7 @@ export class CategoriaService {
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
             const categoria = await response.json();
+            console.log('categoria guardada: ',categoria);
             return categoria
         } catch (error) {
             console.error(error); //TODO: manejar los errores

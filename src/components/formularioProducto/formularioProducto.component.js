@@ -98,11 +98,12 @@ export class FormularioProducto extends HTMLElement {
 
             //Crear categorias
             const categoriasObjetos=[]
-            categorias.map(async categoria=>{
-                
+            for(const categoria of categorias){
                 const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria,categoria))
                 categoriasObjetos.push(objCategoria)
-            })
+            }
+
+            console.log("categorias guardadas: ",categoriasObjetos);
 
             const producto = new Producto(usuarioId, nombre, ["ejemplo", "ejemplo2"], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando

@@ -44,10 +44,11 @@ section#menu-vertical {
 }
 
 section#productos {
-    width: min-content;
+    width: 70%;
     display: grid;
     grid-template-columns: auto;
     gap: 16px;
+    align-self: self-start;
 }
 
 div.filtro {

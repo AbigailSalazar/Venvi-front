@@ -23,6 +23,23 @@ export class ProductoService {
         }
     }
 
+    async getProductosByCategoria(categoria) {
+        categoria = categoria.replace(" ","%20")
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+          };
+          
+
+        try {
+            const response = await fetch(this.#urlServicio+"/categorias/"+categoria, requestOptions)
+            const productos = await response.json();
+            console.log('productos ', productos);
+            return productos;
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
 
     async addProductos(producto) {
 
@@ -38,7 +55,8 @@ export class ProductoService {
             "fotos": producto.fotos,
             "precio": producto.precio,
             "cantidadDisponible": producto.cantidadDisponible,
-            "descripcion": producto.descripcion
+            "descripcion": producto.descripcion,
+            "categorias":producto.categorias
         });
 
         const requestOptions = {
@@ -48,6 +66,7 @@ export class ProductoService {
             redirect: "follow"
         };
 
+        console.log('Producto guardado: ',raw);
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
             return response;
