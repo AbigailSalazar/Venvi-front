@@ -1,4 +1,5 @@
 import { LocalStorageService } from "./LocalStorage.service.js";
+import { JwtService } from "./jwt.service.js";
 
 export class UsuarioService {
     #urlServicio = 'http://localhost:3000/api/usuarios'
@@ -7,20 +8,10 @@ export class UsuarioService {
     }
 
     async registrarUsuario(usuario) {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        const raw = JSON.stringify({
-            "nombre": usuario.nombre,
-            "foto": "",
-            "password": usuario.password,
-            "correo": usuario.correo,
-            "rating": usuario.rating
-        });
 
         const requestOptions = {
             method: "POST",
-            headers: myHeaders,
-            body: raw,
+            body: usuario,
             redirect: "follow"
         };
 

@@ -1,4 +1,5 @@
 import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { JwtService } from "../../services/jwt.service.js"
 
 export class Navbar extends HTMLElement{
 
@@ -11,6 +12,7 @@ export class Navbar extends HTMLElement{
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.#agregarEventListeners(shadow)
+        this.#agregarFotoUser(shadow)
     }
 
     #render(shadow) {
@@ -21,8 +23,8 @@ export class Navbar extends HTMLElement{
             <input type="text" placeholder="Busca lo que quieras">
             <button id="btn-search"></button>
         </div>
-        <button id="car">
-        <button id="user">
+        <button id="car"></button>
+        <img src="/src/assets/user.svg" id="user">
     </nav>
         
         `
@@ -55,4 +57,12 @@ export class Navbar extends HTMLElement{
         });
     }
 
+    #agregarFotoUser(shadow){
+        const imgUser = shadow.getElementById('user')
+        const jwt = LocalStorageService.getItem('jwt')
+        if(jwt){
+                 const foto =JwtService.decode(jwt).foto
+        imgUser.setAttribute('src',foto)
+        }
+    }
 }

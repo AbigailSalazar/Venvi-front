@@ -63,19 +63,22 @@ button {
 
   
   button#car{
-    size: 32px;
+    width: 24px;
+    height: 24px;
     background-image: url("/src/assets/shopping-cart.svg");
     background-color: transparent;
     filter: invert(1);
   }
 
   
-  button#user{
-    size: 32px;
-    background-image: url("/src/assets/user.svg");
-    background-color: transparent;
-    background-blend-mode: multiply; 
-    filter: invert(1);
+  img#user{
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    align-self: center;
   }
 
   img:hover{

@@ -10,7 +10,7 @@ export class JwtService {
         const id = payload.id; // ID del usuario
         const nombre = payload.nombre; // Nombre del usuario
         const correo = payload.correo; // Correo electrónico del usuario
-       
-        return {id,nombre,correo}
+        const foto = payload.foto; 
+        return {id,nombre,correo,foto}
     }
 }
