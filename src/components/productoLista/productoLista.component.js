@@ -25,11 +25,11 @@ export class ProductoLista extends HTMLElement {
         shadow.innerHTML += `
         <section>
                     <img id="eliminar" class="icon" src="/src/assets/x-circle.svg">
-                    <img id="imagen" src="https://placehold.co/72x72?text=image-product">
+                    <img id="imagen" src="${imagen?imagen:"https://placehold.co/72x72?text=image-product"}">
                     <label id="nombre">${nombre}</label>
                     <label id="precio">$${precio}</label>
                     <label id="cantidad">${cantidad}</label>
-                    <label id="categorias">Categoria</label>
+                    <label id="categorias">${categorias?categorias:"Ninguna"}</label>
                     <img id="editar" class="icon"  src="/src/assets/edit.svg">
                </section>
         

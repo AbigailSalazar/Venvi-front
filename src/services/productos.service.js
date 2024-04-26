@@ -42,8 +42,6 @@ export class ProductoService {
     }
 
     async addProductos(producto) {
-
-        //TODO: registrar categorias y obtener los objetos para agregarlas al producto
         const myHeaders = new Headers();
 
         myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
@@ -52,7 +50,6 @@ export class ProductoService {
         const raw = JSON.stringify({
             "idVendedor": producto.idVendedor,
             "nombre": producto.nombre,
-            "fotos": producto.fotos,
             "precio": producto.precio,
             "cantidadDisponible": producto.cantidadDisponible,
             "descripcion": producto.descripcion,
@@ -69,6 +66,26 @@ export class ProductoService {
         console.log('Producto guardado: ',raw);
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
+            return await response.json();
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+
+    }
+
+    async addFotos(idProducto, fotos){
+        
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
+        const requestOptions = {
+            method: "PATCH",
+            headers:myHeaders,
+            body: fotos,
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio+"/"+idProducto+"/fotos", requestOptions);
             return response;
         } catch (error) {
             console.error(error); //TODO: manejar los errores
@@ -118,7 +135,6 @@ export class ProductoService {
 
         const raw = JSON.stringify({
             "nombre": producto.nombre,
-            "fotos": producto.fotos,
             "precio": producto.precio,
             "cantidadDisponible": producto.cantidadDisponible,
             "descripcion": producto.descripcion //TODO: categorias

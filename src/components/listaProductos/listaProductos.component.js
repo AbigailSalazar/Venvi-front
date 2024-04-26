@@ -50,13 +50,23 @@ export class ListaProductos extends HTMLElement {
         const productos = await productoService.getByUser()
 
         productos.map((producto) => {
+            console.log(producto);
             const productoElement = document.createElement('producto-lista')
             productoElement.setAttribute('id', producto._id)
-            productoElement.setAttribute('imagen',"") //TODO
             productoElement.setAttribute('nombre', producto.nombre)
             productoElement.setAttribute('precio', producto.precio)
             productoElement.setAttribute('cantidad',producto.cantidadDisponible)
 
+            if(producto.fotos){
+                productoElement.setAttribute('imagen',producto.fotos[0]) //TODO  
+            }
+            if(producto.categorias){
+                var categoriasStr=""
+                for(const categoria of producto.categorias){
+                    categoriasStr+=categoria.nombre+" "
+                }
+                productoElement.setAttribute('categorias',categoriasStr)
+            }
             listaProductos.appendChild(productoElement)
         })
     }

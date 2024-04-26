@@ -24,9 +24,15 @@ export class FormularioProducto extends HTMLElement {
     async #render(shadow) {
         //cargar info producto para editar
         const idProducto = this.getAttribute('idProducto')
+        var categorias=""
         let producto
         if (idProducto) {
             producto = await this.productoService.getById(idProducto)
+            if(producto.categorias){
+                for(const categoria of producto.categorias){
+                    categorias+=categoria.nombre+","
+                }
+            }
         }
 
 
@@ -41,7 +47,7 @@ export class FormularioProducto extends HTMLElement {
             <div class="divided">
             <div class="campo">
                 <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidad" min="0" placeholder="0" required value="${producto ? producto.cantidadDisponible : 0}">
+                <input type="number" id="cantidad" name="cantidadDisponible" min="0" placeholder="0" required value="${producto ? producto.cantidadDisponible : 0}">
             </div>
             <div class="campo">
                 <label for="precio">Precio</label>
@@ -51,7 +57,7 @@ export class FormularioProducto extends HTMLElement {
                     
             </div>
             <label for="categorias">Categorias</label>
-            <input type="text"  id="categorias" name="categorias" placeholder="Categoria1, Categoria2...">
+            <input type="text"  id="categorias" name="categorias" placeholder="Categoria1, Categoria2..." value="${categorias}">
     
             <label for="descripcion">Descripción</label>
             <textarea type="text" id="descripcion" name="descripcion" placeholder="Incluye más detalles para tu producto" required>${producto ? producto.descripcion : ""}</textarea>
@@ -93,29 +99,38 @@ export class FormularioProducto extends HTMLElement {
             const cantidad = form.cantidad.value
             const categorias = form.categorias.value.split(',')
             const descripcion = form.descripcion.value
-            
+
             const usuarioId = JwtService.decode(LocalStorageService.getItem('jwt')).id
 
             //Crear categorias
-            const categoriasObjetos=[]
-            for(const categoria of categorias){
-                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria,categoria))
+            const categoriasObjetos = []
+            for (const categoria of categorias) {
+                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria, categoria))
                 categoriasObjetos.push(objCategoria)
             }
 
-            console.log("categorias guardadas: ",categoriasObjetos);
-
-            const producto = new Producto(usuarioId, nombre, ["ejemplo", "ejemplo2"], precio, cantidad, descripcion, categoriasObjetos)
+            const producto = new Producto(usuarioId, nombre, null, precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
-                const respuesta = await this.productoService.editById(idProducto,producto)
+                const respuesta = await this.productoService.editById(idProducto, producto)
                 console.log('respuesta: ', respuesta);
+                //TODO: editar fotos
             }
             else {
                 //Guardar producto
                 const respuesta = await this.productoService.addProductos(producto)
-                console.log('respuesta: ', respuesta);
-            }
 
+                console.log('respuesta: ', respuesta);
+                const input = shadow.getElementById('fotos');
+                //subir imagenes
+                if (input.files&&respuesta) {   
+                    const filesData = new FormData()
+                    for (const file of input.files) {
+                        filesData.append('fotos', file)
+                      }
+                    
+                    const respuestaFotos = await this.productoService.addFotos(respuesta._id, filesData)
+                }
+            }
             //Para cambiar a la lista de productos
             btnSave.setAttribute('id', "add-producto")
             btnSave.textContent = 'añadir producto'
@@ -129,10 +144,15 @@ export class FormularioProducto extends HTMLElement {
     #addFotoHandler(shadow) {
         const fotosDiv = shadow.querySelector('.fotos');
         const input = document.createElement('input');
+        input.id='fotos'
+        input.name = 'fotos'
         input.type = 'file';
         input.accept = 'image/*'; // Solo acepta archivos de imagen
         input.style.display = 'none'; // Oculta el input
-        fotosDiv.appendChild(input); // Añade el input al div fotos
+
+        const form = shadow.querySelector('form')
+        form.append(input)
+        //fotosDiv.appendChild(input); // Añade el input al div fotos
 
         const addButton = shadow.querySelector('.add');
         addButton.addEventListener('click', () => {
