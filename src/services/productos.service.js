@@ -66,7 +66,12 @@ export class ProductoService {
         console.log('Producto guardado: ',raw);
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
             return await response.json();
+            
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
@@ -102,6 +107,10 @@ export class ProductoService {
 
         try {
             const response = await fetch(this.#urlServicio + "/vendedores/" + idUsuario, requestOptions)
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
             const productos = await response.json();
             return productos
         } catch (error) {
@@ -149,6 +158,10 @@ export class ProductoService {
 
         try {
             const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
             return response
         } catch (error) {
             console.error(error); //TODO: manejar los errores
@@ -168,9 +181,19 @@ export class ProductoService {
 
         try {
             const response = await fetch(this.#urlServicio + "/" + idProducto, requestOptions)
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
             return response
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
+    }
+
+    cerrarSesiónExpirada() {
+        alert('Tu sesión ha expirado')
+        window.location.href = 'src/pages/login/login.html'
+        LocalStorageService.deleteItem('jwt')
     }
 }

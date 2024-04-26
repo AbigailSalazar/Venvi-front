@@ -17,6 +17,12 @@ div img#producto{
     
 }
 
+#error img{
+    filter: invert(10%) sepia(100%) saturate(7362%) hue-rotate(5deg) brightness(88%);
+    background-color: transparent;
+
+}
+
 h4{
     font-family: 'Public Sans',sans-serif;
     font-size: 14px;
