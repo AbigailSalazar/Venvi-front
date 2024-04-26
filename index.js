@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 productoElement.setAttribute('id', producto._id)
                 productoElement.setAttribute('nombre', producto.nombre)
                 productoElement.setAttribute('precio', producto.precio)
-                productoElement.setAttribute('foto', "") //TODO: obtener foto
+                productoElement.setAttribute('foto', producto.fotos[0]) //TODO: obtener foto
     
                 sectionProductos.appendChild(productoElement)
             }

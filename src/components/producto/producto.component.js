@@ -17,7 +17,7 @@ export class Producto extends HTMLElement{
         const foto = this.getAttribute('foto')
         shadow.innerHTML += `
         <div>
-            <img id="foto" src="https://placehold.co/202x172?text=image-product">
+            <img id="foto" width="200" height="172" src="${foto?foto:"https://placehold.co/72x72?text=image-product"}">
             <h4 id="nombre">${nombre}</h4>
             <p id="precio">$${precio}</p>
         </div>
