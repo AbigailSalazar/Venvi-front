@@ -1,3 +1,4 @@
+import { LocalStorageService } from "./src/services/LocalStorage.service.js";
 import { CategoriaService } from "./src/services/categorias.service.js";
 import { ProductoService } from "./src/services/productos.service.js"
 
@@ -5,13 +6,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const sectionProductos = document.getElementById('productos')
     const lblnResultados = document.getElementById('n-resultados')
+    const inputPrecioMin = document.querySelector('#min-precio');
+    const inputPrecioMax = document.querySelector('#max-precio');
 
     const productoService = new ProductoService()
 
     cargarTodosProductos()
 
-    const inputPrecioMin = document.querySelector('#min-precio');
-    const inputPrecioMax = document.querySelector('#max-precio');
+
 
     inputPrecioMin.addEventListener('input', desactivarRadioButtons);
     inputPrecioMax.addEventListener('input', desactivarRadioButtons);
@@ -21,7 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const desactivar = inputPrecioMin.value !== '' || inputPrecioMax.value !== '';
 
         radioButtonsPrecio.forEach(radioButton => {
-            radioButton.disabled = desactivar;
+            radioButton.disabled=desactivar
+            radioButton.checked=!desactivar
         });
     }
 
@@ -29,61 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnAplicarFiltros = document.querySelector('#aplicar-filtros');
 
     // Agregar evento al hacer clic en el botón de aplicar filtros
-    btnAplicarFiltros.addEventListener('click', async () => {
-        // Obtener valores de los filtros de precio
-
-        const activeFilters = document.querySelector('#filters');
-        activeFilters.innerHTML = '';
-
-        const precioMin = document.querySelector('#min-precio').value;
-        const precioMax = document.querySelector('#max-precio').value;
-        const productos=[]
-        let filtrosSelec=0
-
-        const categoriaSelected = document.querySelectorAll('input[name="categoria"]:checked')
-        console.log('Categoría selected: ', categoriaSelected);
-        if (categoriaSelected.length > 0) {
-            const categoriaFilter = document.createElement('filter-tag');
-            categoriaFilter.setAttribute("name", categoriaSelected[0].value)
-            activeFilters.appendChild(categoriaFilter);
-
-            console.log('Añadiendo categoria filtro');
-
-            const productosByCategoria = await productoService.getProductosByCategoria(categoriaSelected[0].value)
-            productos.push(...productosByCategoria)
-            filtrosSelec++
-        }
-
-        const precioSelected = document.querySelectorAll('input[name="precio"]:checked')
-        if (precioSelected.length > 0) {
-            const precioFilter = document.createElement('filter-tag');
-            precioFilter.setAttribute("name", precioSelected[0].value)
-            activeFilters.appendChild(precioFilter);
-            console.log('Añadiendo precio filtro');
-            filtrosSelec++
-            //TODO: buscar y añadir productos al arreglo
-        }
-
-        if (precioMin > 0 || precioMax > 0) {
-            const rangoFilter = document.createElement('filter-tag');
-            rangoFilter.setAttribute("name", `${precioMin}$ - ${precioMax}$`)
-            activeFilters.appendChild(rangoFilter)
-            console.log('Añadiendo rango filtro');
-            filtrosSelec++
-            //TODO: buscar y añadir productos al arreglos
-        }
-
-        if(filtrosSelec>0){
-            renderProductos(productos)
-        }
-        else{
-            cargarTodosProductos()
-        }
-        
-    });
-
-   
-
+    btnAplicarFiltros.addEventListener('click', aplicarFiltros);   
     //obtener categorias
 
     const categoriaService = new CategoriaService();
@@ -109,6 +58,60 @@ document.addEventListener('DOMContentLoaded', async () => {
             categoriaList.appendChild(li);
         });
     });
+
+    async function aplicarFiltros(){
+        
+        const activeFilters = document.querySelector('#filters');
+        activeFilters.innerHTML = '';
+
+        var precioMin =inputPrecioMin.value;
+        var precioMax = inputPrecioMax.value;
+        let filtrosSelec=0
+
+        const categoriaSelected = document.querySelectorAll('input[name="categoria"]:checked')
+        console.log('Categoría selected: ', categoriaSelected);
+        if (categoriaSelected.length > 0) {
+            const categoriaFilter = document.createElement('filter-tag');
+            categoriaFilter.setAttribute("name", categoriaSelected[0].value)
+            categoriaFilter.classList.add('categoria')
+            activeFilters.appendChild(categoriaFilter);
+
+            filtrosSelec++
+        }
+   
+        if (precioMin > 0 || precioMax > 0) {
+            const rangoFilter = document.createElement('filter-tag');
+            rangoFilter.setAttribute("name", `${precioMin}$ - ${precioMax}$`)
+            activeFilters.appendChild(rangoFilter)
+            rangoFilter.classList.add('rango')
+            filtrosSelec++
+        }
+    
+        const precioSelected = document.querySelectorAll('input[name="precio"]:checked')
+        if (precioSelected.length > 0) {
+            const precioFilter = document.createElement('filter-tag');
+            precioFilter.setAttribute("name", precioSelected[0].value)
+            precioFilter.classList.add('precio')
+            activeFilters.appendChild(precioFilter);
+            precioMax=precioSelected[0].value
+            filtrosSelec++
+        }
+        
+        const nombreBuscado = LocalStorageService.getItem('search')
+        if(filtrosSelec>0||nombreBuscado){
+            
+            console.log('nombre buscado:'+nombreBuscado);
+            const productos= await productoService.buscarProducto(
+                nombreBuscado,
+                categoriaSelected[0]?categoriaSelected[0].value:null,
+                precioMin,
+                precioMax)
+            renderProductos(productos)
+        }
+        else{
+            cargarTodosProductos()
+        }
+    }
 
     async function cargarTodosProductos(){
         const productosAnteriores= document.querySelectorAll('producto-info')

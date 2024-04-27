@@ -136,6 +136,37 @@ export class ProductoService {
         }
     }
 
+    async buscarProducto(nombre,categoria,min,max){
+        
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        const filtros={}
+        if(nombre){
+            filtros.nombre=nombre
+        }
+        if(categoria){
+            filtros.categoria=categoria
+        }
+        if(min){
+            filtros.min=min
+        }
+        if(max){
+            filtros.max=max
+        }
+        var query= new URLSearchParams(filtros)
+        try {
+            const response = await fetch(this.#urlServicio+"/search?"+query, requestOptions)
+            const producto = await response.json();
+            console.log('producto obtenido: ', producto);
+            return producto;
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
+
     async editById(idProducto, producto) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();

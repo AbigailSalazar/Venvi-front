@@ -14,7 +14,10 @@ export class FilterTag extends HTMLElement{
 
     #render(shadow) {
         //cargar nombre
-        const nombre=this.getAttribute("name")
+        var nombre=this.getAttribute("name")
+        if(this.className=="precio"){
+            nombre="Precio max: "+nombre
+        }
         shadow.innerHTML += `
         <div id="filter-tag">
         <label>${nombre?nombre:"Ejemplo"}</label>
@@ -35,20 +38,33 @@ export class FilterTag extends HTMLElement{
         let btnCancel = shadow.querySelector('#cancel')
         btnCancel.addEventListener("click",()=>{
             //deseleccionar el filtro
-            const radioButton = document.getElementById(this.getAttribute('name'));
-            if(radioButton){
-                radioButton.checked=false
-            }
-            else{
-                const inputPrecioMin = document.querySelector('#min-precio')
-                const inputPrecioMax = document.querySelector('#max-precio')
-                inputPrecioMin.value !== '' 
-                inputPrecioMax.value !== ''
+            const tipo = this.className
+            switch(tipo){
+                case "categoria":{
+                    const categoriaSelected = document.querySelectorAll('input[name="categoria"]:checked')
+                    console.log('categoria selected: '+categoriaSelected);
+                    categoriaSelected[0].checked=false
+                }
+                break
+                case "precio":{
+                    const precioSelected = document.querySelectorAll('input[name="precio"]:checked')
+                    precioSelected[0].checked=false
+                }
+                break
+                case "rango":{
+                    const inputPrecioMin = document.querySelector('#min-precio')
+                    const inputPrecioMax = document.querySelector('#max-precio')
+                    inputPrecioMin.value = '' 
+                    inputPrecioMax.value = ''
+                }
+                break
+                
             }
             //activar el boton de aplicar filtros
+            this.remove()
             const btnAplicarFiltros = document.querySelector('#aplicar-filtros');
             btnAplicarFiltros.click()
-            this.remove()
+            
         })
     }
 }
