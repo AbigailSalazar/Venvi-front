@@ -13,6 +13,7 @@ export class ProductoLista extends HTMLElement {
         this.#addElminarHandler(shadow)
         this.#addEditarHandler(shadow)
         this.#cargarProducto(shadow)
+        this.#agregarClickHandler()
     }
 
     #render(shadow) {
@@ -88,5 +89,9 @@ export class ProductoLista extends HTMLElement {
         shadow.appendChild(link)
     }
 
-
+    #agregarClickHandler(){
+        this.addEventListener('click',()=>{
+            window.location.href = 'src/pages/producto/producto.html?producto='+this.id; 
+        })
+    }
 }

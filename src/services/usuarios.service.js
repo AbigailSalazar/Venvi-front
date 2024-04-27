@@ -69,6 +69,22 @@ export class UsuarioService {
             console.error(error); //TODO: manejar los errores
         }
     }
+
+    async getPerfilById(idUsuario){
+
+        const requestOptions = {
+          method: "GET",
+          redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio+"/perfil/"+idUsuario, requestOptions)
+            const usuario = await response.json();
+            return usuario;
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
     
     async editById(idUsuario, usuario) {
         const token = LocalStorageService.getItem('jwt')

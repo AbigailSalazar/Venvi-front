@@ -18,8 +18,8 @@
             </div>
         </div>
         <div class="info">
-            <p class="title">Titulo del producto</p>
-            <p>Catagorias: </p>
+            <p class="titulo">Titulo del producto</p>
+            <p id="categorias">Catagorias: </p>
             <p class="subtitulo">Descripcion</p>
             <p id="descripcion">Aqui va la descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a quam at dui porttitor tristique. Mauris orci lectus, sagittis sit amet cursus in, viverra id risus. Proin luctus metus a purus dapibus ultricies. Nulla ultricies purus in dolor semper dapibus. Ut eget placerat justo, a mollis felis. Ut ultricies, justo sed aliquet congue, nibh diam elementum arcu, eu congue massa turpis fringilla nisi. Pellentesque a diam et est molestie ultrices vel eget augue. Quisque elementum augue id lacus ultrices scelerisque.</p>
             <p class="precio">$$$</p>
@@ -27,7 +27,7 @@
             <div id="btn-container">
                 <div class="input-container">
                     <button id="menos-cantidad">-</button>
-                    <input type="number" name="cantidad" id="cantidad">
+                    <input type="number" name="cantidad" id="cantidad" min="1">
                     <button id="mas-cantidad">+</button>
                 </div>
                 <button class="range" id="add-to-cart">añadir al carrito <img src="/src/assets/shopping-cart.svg"></button>
@@ -42,5 +42,5 @@
         </div>
     </main>
 </body>
-<script src="./producto.js"></script>
+<script type="module" src="./producto.js"></script>
 </html>

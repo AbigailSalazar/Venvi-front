@@ -9,6 +9,7 @@ export class Producto extends HTMLElement{
         const shadow = this.attachShadow({mode:"open"})
         this.#agregarEstilo(shadow)
         this.#render(shadow)
+        this.#agregarClickHandler()
     }
 
     #render(shadow) {
@@ -30,6 +31,12 @@ export class Producto extends HTMLElement{
         link.setAttribute("rel","stylesheet")
         link.setAttribute("href","../src/components/producto/producto.component.css")
         shadow.appendChild(link)
+    }
+
+    #agregarClickHandler(){
+        this.addEventListener('click',()=>{
+            window.location.href = 'src/pages/producto/producto.html?producto='+this.id; 
+        })
     }
 
 

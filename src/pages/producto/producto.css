@@ -36,7 +36,7 @@ img{
     border-radius: 4px;
 }
 img.principal{
-    height: 80%;
+    height: 50%;
     width: 100%;
 }
 
@@ -58,7 +58,7 @@ div#carrusel img{
     width: 96px;
 }
 
-.title{
+.titulo{
     font-size: 20px;
     color:#191C1F
 }
