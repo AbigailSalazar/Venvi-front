@@ -78,7 +78,7 @@ button {
     width: 24px;
     height: 24px;
     background-repeat: no-repeat;
-    border: none;
+    border: 2px solid rgb(248, 248, 248);
     outline: none;
     border-radius: 50%;
     align-self: center;

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/../script.js"></script>
+    <link rel="stylesheet" href="producto.css">
+    <title>Detalle de producto</title>
+</head>
+<body>
+    <nav-bar></nav-bar>
+    <main>
+        <div class="imagenes">
+            <img class="principal" src="https://placehold.co/600x400?text=image" >
+            <div id="carrusel">
+                <img src="https://placehold.co/600x400?text=image" >
+                <img src="https://placehold.co/600x400?text=image" >
+            </div>
+        </div>
+        <div class="info">
+            <p class="title">Titulo del producto</p>
+            <p>Catagorias: </p>
+            <p class="subtitulo">Descripcion</p>
+            <p id="descripcion">Aqui va la descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a quam at dui porttitor tristique. Mauris orci lectus, sagittis sit amet cursus in, viverra id risus. Proin luctus metus a purus dapibus ultricies. Nulla ultricies purus in dolor semper dapibus. Ut eget placerat justo, a mollis felis. Ut ultricies, justo sed aliquet congue, nibh diam elementum arcu, eu congue massa turpis fringilla nisi. Pellentesque a diam et est molestie ultrices vel eget augue. Quisque elementum augue id lacus ultrices scelerisque.</p>
+            <p class="precio">$$$</p>
+            <hr>
+            <div id="btn-container">
+                <div class="input-container">
+                    <button id="menos-cantidad">-</button>
+                    <input type="number" name="cantidad" id="cantidad">
+                    <button id="mas-cantidad">+</button>
+                </div>
+                <button class="range" id="add-to-cart">añadir al carrito <img src="/src/assets/shopping-cart.svg"></button>
+                <button class="range" id="buy">comprar</button>
+            </div>
+        </div>
+        <div class="vendedor">
+            <p class="black">Vendedor</p>
+            <p id="vendedor-nombre">Nombre: nombre del vendedor</p>
+            <img id="vendedor-foto" src="https://placehold.co/600x400">
+            <p id="vendedor-rating">Rating: </p>
+        </div>
+    </main>
+</body>
+<script src="./producto.js"></script>
+</html>

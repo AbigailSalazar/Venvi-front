@@ -1,0 +1,175 @@
+body{
+    font-family: 'Public Sans', sans-serif;
+    margin: 0;
+}
+main {
+    display: flex;
+    padding-top: 40px;
+    align-items: flex-start;
+    gap: 16px;
+    justify-content: center;
+    margin: 16px;
+    gap: 56px;
+}
+
+div.imagenes{
+    width: 35%;
+    height: 50%;
+    gap: 24px;
+}
+
+div.info{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    gap: 12px;
+}
+
+div.vendedor{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+img{
+    border: 1px solid #E4E7E9;
+    border-radius: 4px;
+}
+img.principal{
+    height: 80%;
+    width: 100%;
+}
+
+div#carrusel{
+    display: inline;
+    width: fit-content;
+    height: 20%;
+    overflow: hidden;
+    gap: 8px;
+}
+
+div#carrusel img.selected{
+    width: 100%;
+    border-color: #4097BF;
+    border: 2px;
+}
+
+div#carrusel img{
+    width: 96px;
+}
+
+.title{
+    font-size: 20px;
+    color:#191C1F
+}
+
+.subtitulo{
+    font-size: 16px;
+    color:#191C1F
+}
+
+p{
+    font-size: 14px;
+    color: #5F6C72;
+}
+
+.precio{
+    font-size: 24px;
+    color: #66ACCC;
+    font-weight:bold;
+}
+
+div.input-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    border: 2px solid #E4E7E9;
+    border-radius: 4px;
+    width: 25%;
+    align-items: center;
+    justify-items: center;
+}
+
+div#btn-container {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    gap: 24px;
+}
+
+button{
+    color: #191C1F;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    text-transform: uppercase;
+    border-radius: 2px;
+    padding: 16px;
+
+    text-align: center;
+    width: max-content;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button#buy {
+    border: 2px solid #4097BF;
+    background-color: #FFFF;
+    color: #4097BF;
+    width: 25%;
+    padding: 8px;
+}
+
+button#add-to-cart {
+    background-color: #4097BF;
+    color: #FFFF;
+    width: 50%;
+    padding: 8px;
+    text-wrap: nowrap;
+    text-align: center;
+}
+
+button img{
+    border: none;
+    filter: invert();
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    align-self: center;
+}
+
+button.range{
+    width: 30%;
+}
+
+input{
+    color: #475156;
+    border: none;
+    outline: none;
+    width: 40%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    color: #E4E7E9;
+    border: 1px solid;
+}
+
+p.black{
+    color: #191C1F;
+}
+
+.vendedor img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+

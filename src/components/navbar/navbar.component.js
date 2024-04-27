@@ -34,7 +34,7 @@ export class Navbar extends HTMLElement {
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
         link.setAttribute("rel", "stylesheet")
-        link.setAttribute("href", "../src/components/navbar/navbar.component.css")
+        link.setAttribute("href", "/../src/components/navbar/navbar.component.css")
         shadow.appendChild(link)
     }
 
