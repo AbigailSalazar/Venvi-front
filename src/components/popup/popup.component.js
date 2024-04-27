@@ -15,7 +15,7 @@ export class PopUp extends HTMLElement {
     #render(shadow) {
 
         shadow.innerHTML += `
-        <div class="popup" id="warning">
+        <Dialog class="popup" id="warning">
             <img id="exit" src="/src/assets/x-pop-up.svg">
             <div id="content">
                 <img src="/src/assets/alert-octagon.svg">
@@ -31,7 +31,7 @@ export class PopUp extends HTMLElement {
                 <button id="aceptar">Yes, Confirmar</button>
             </div>
 
-        </div>
+        </Dialog>
         
         `
     }

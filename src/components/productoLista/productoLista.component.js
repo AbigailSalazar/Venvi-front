@@ -42,7 +42,7 @@ export class ProductoLista extends HTMLElement {
             let idProducto = this.getAttribute("id");//Obtiene id del producto a eliminar
             let popUp = document.createElement('pop-up')
             shadow.appendChild(popUp)
-
+            popUp.showModal()
 
             let btnAccept = popUp.shadowRoot.querySelector('#aceptar');
             btnAccept.addEventListener("click", async () => {
