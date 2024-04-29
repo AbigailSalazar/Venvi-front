@@ -46,19 +46,7 @@ export class UsuarioNavSettings extends HTMLElement {
 
     #addNuevoProductoHandler() {
 
-        //Para cambiar a la lista de productos
 
-        const section = document.querySelector('#dinamic-content')
-        const btnSave = document.querySelector('#add-producto')
-
-        
-        btnSave.addEventListener('click', () => {
-            btnSave.setAttribute('id', "save-producto")
-            btnSave.textContent = 'publicar producto'
-            section.innerHTML = '';
-            const formulario = document.createElement('form-producto')
-            section.appendChild(formulario)
-        })
 
     }
 

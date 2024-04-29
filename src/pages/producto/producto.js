@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function cargarUsuarioInfo(usuario) {
         console.log('usuario',usuario);
-        vendedorNombre.innerHTML=`Categorias: <strong>${usuario.nombre}</strong>`
+        vendedorNombre.innerHTML=`Nombre: <strong>${usuario.nombre}</strong>`
         vendedorFoto.setAttribute('src',usuario.foto)
         vendedorRating.innerHTML=`Rating: <strong>${usuario.rating}</strong>`
     }

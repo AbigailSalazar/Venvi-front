@@ -53,7 +53,7 @@ export class Navbar extends HTMLElement {
                 window.location.href = '/usuario-productos.html';
             }
             else {
-                window.location.href = '../src/pages/login/login.html';
+                window.location.href = '/../src/pages/login/login.html';
             }
         });
     }

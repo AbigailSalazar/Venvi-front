@@ -84,13 +84,16 @@ export class FormularioProducto extends HTMLElement {
     }
 
     #addPublicarHandler(shadow) {
+        const idProducto = this.getAttribute('idProducto')
+        const btnSaveChanges= document.createElement('button')
+        const main = document.getElementsByTagName('main')
+        btnSaveChanges.textContent = idProducto?'Guardar cambios':'publicar producto'
+        main[0].appendChild(btnSaveChanges)
 
         const section = document.querySelector('#dinamic-content')
-        const btnSave = document.querySelector('#save-producto')
 
-
-        btnSave.addEventListener('click', async () => {
-            const idProducto = this.getAttribute('idProducto')
+        btnSaveChanges.addEventListener('click', async () => {
+          
 
             //obtener datos de producto
             const form = shadow.querySelector('form')
@@ -109,8 +112,9 @@ export class FormularioProducto extends HTMLElement {
                 categoriasObjetos.push(objCategoria)
             }
 
-            const producto = new Producto(usuarioId, nombre, null, precio, cantidad, descripcion, categoriasObjetos)
+            const producto = new Producto(usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
+                console.log('Editando producto');
                 const respuesta = await this.productoService.editById(idProducto, producto)
                 console.log('respuesta: ', respuesta);
                 //TODO: editar fotos
@@ -132,11 +136,10 @@ export class FormularioProducto extends HTMLElement {
                 }
             }
             //Para cambiar a la lista de productos
-            btnSave.setAttribute('id', "add-producto")
-            btnSave.textContent = 'añadir producto'
             section.innerHTML = '';
             const listaProductos = document.createElement('lista-productos')
             section.appendChild(listaProductos)
+            btnSaveChanges.remove()
         })
 
     }

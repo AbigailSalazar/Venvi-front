@@ -12,6 +12,7 @@ export class ListaProductos extends HTMLElement {
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.#cargarProductos(shadow)
+        this.#agregarBotonAdd()
     }
 
     #render(shadow) {
@@ -42,6 +43,27 @@ export class ListaProductos extends HTMLElement {
         shadow.appendChild(link)
     }
 
+    #agregarBotonAdd() {
+        const btnAdd = document.createElement('button')
+        btnAdd.id="add-producto"
+        const main = document.getElementsByTagName('main')
+
+        btnAdd.textContent = 'Agregar producto'
+        main[0].appendChild(btnAdd)
+
+        //Para cambiar a la lista de productos
+
+        const section = document.querySelector('#dinamic-content')
+
+        btnAdd.addEventListener('click', () => {
+
+            section.innerHTML = '';
+            const formulario = document.createElement('form-producto')
+            section.appendChild(formulario)
+            btnAdd.remove()
+        })
+    }
+
     async #cargarProductos(shadow) {
         //obtener productos de servicio y agregarlos
         const listaProductos = shadow.querySelector('#content')
@@ -55,17 +77,17 @@ export class ListaProductos extends HTMLElement {
             productoElement.setAttribute('id', producto._id)
             productoElement.setAttribute('nombre', producto.nombre)
             productoElement.setAttribute('precio', producto.precio)
-            productoElement.setAttribute('cantidad',producto.cantidadDisponible)
+            productoElement.setAttribute('cantidad', producto.cantidadDisponible)
 
-            if(producto.fotos){
-                productoElement.setAttribute('imagen',producto.fotos[0]) //TODO  
+            if (producto.fotos) {
+                productoElement.setAttribute('imagen', producto.fotos[0]) //TODO  
             }
-            if(producto.categorias){
-                var categoriasStr=""
-                for(const categoria of producto.categorias){
-                    categoriasStr+=categoria.nombre+" "
+            if (producto.categorias) {
+                var categoriasStr = ""
+                for (const categoria of producto.categorias) {
+                    categoriasStr += categoria.nombre + " "
                 }
-                productoElement.setAttribute('categorias',categoriasStr)
+                productoElement.setAttribute('categorias', categoriasStr)
             }
             listaProductos.appendChild(productoElement)
         })

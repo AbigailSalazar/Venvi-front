@@ -13,7 +13,7 @@ export class ProductoLista extends HTMLElement {
         this.#addElminarHandler(shadow)
         this.#addEditarHandler(shadow)
         this.#cargarProducto(shadow)
-        this.#agregarClickHandler()
+        this.#agregarClickHandler(shadow)
     }
 
     #render(shadow) {
@@ -68,9 +68,8 @@ export class ProductoLista extends HTMLElement {
         btnEdit.addEventListener('click', () => {
             const btnAdd = document.querySelector('#add-producto')
             const section = document.querySelector('#dinamic-content')
-
-            btnAdd.setAttribute('id', "save-producto")
-            btnAdd.textContent = 'Guardar cambios'
+            btnAdd.remove()
+            
             section.innerHTML = '';
 
             //pasar id del producto
@@ -89,8 +88,9 @@ export class ProductoLista extends HTMLElement {
         shadow.appendChild(link)
     }
 
-    #agregarClickHandler(){
-        this.addEventListener('click',()=>{
+    #agregarClickHandler(shadow){
+        const labelNombre = shadow.querySelector('#nombre')
+        labelNombre.addEventListener('click',()=>{
             window.location.href = 'src/pages/producto/producto.html?id='+this.id; 
         })
     }
