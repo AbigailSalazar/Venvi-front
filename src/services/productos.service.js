@@ -16,7 +16,6 @@ export class ProductoService {
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
             const productos = await response.json();
-            console.log('productos ', productos);
             return productos;
         } catch (error) {
             console.error(error); //TODO: manejar los errores
@@ -63,7 +62,6 @@ export class ProductoService {
             redirect: "follow"
         };
 
-        console.log('Producto guardado: ',raw);
         try {
             const response = await fetch(this.#urlServicio, requestOptions);
             if(response.status==403){
@@ -129,7 +127,6 @@ export class ProductoService {
         try {
             const response = await fetch(this.#urlServicio+"/"+idProducto, requestOptions)
             const producto = await response.json();
-            console.log('producto obtenido: ', producto);
             return producto;
         } catch (error) {
             console.error(error); //TODO: manejar los errores
@@ -160,7 +157,6 @@ export class ProductoService {
         try {
             const response = await fetch(this.#urlServicio+"/search?"+query, requestOptions)
             const producto = await response.json();
-            console.log('producto obtenido: ', producto);
             return producto;
         } catch (error) {
             console.error(error); //TODO: manejar los errores

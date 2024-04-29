@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const productoId = urlParams.get('producto')
+    const productoId = urlParams.get('id')
 
     const imagenP = document.querySelector('img.principal')
     const titulo = document.querySelector('.titulo')

@@ -35,7 +35,7 @@ export class Producto extends HTMLElement{
 
     #agregarClickHandler(){
         this.addEventListener('click',()=>{
-            window.location.href = 'src/pages/producto/producto.html?producto='+this.id; 
+            window.location.href = 'src/pages/producto/producto.html?id='+this.id; 
         })
     }
 
