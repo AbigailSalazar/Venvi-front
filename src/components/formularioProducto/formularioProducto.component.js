@@ -108,19 +108,21 @@ export class FormularioProducto extends HTMLElement {
             //Crear categorias
             const categoriasObjetos = []
             for (const categoria of categorias) {
-                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria, categoria))
+                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria.toLowerCase(), categoria))
                 categoriasObjetos.push(objCategoria)
             }
 
             const producto = new Producto(usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
                 console.log('Editando producto');
+                this.mostrarLoadingdlg("Guardando cambios",shadow)
                 const respuesta = await this.productoService.editById(idProducto, producto)
                 console.log('respuesta: ', respuesta);
                 //TODO: editar fotos
             }
             else {
                 //Guardar producto
+                this.mostrarLoadingdlg("Publicando producto",shadow)
                 const respuesta = await this.productoService.addProductos(producto)
 
                 console.log('respuesta: ', respuesta);
@@ -142,6 +144,12 @@ export class FormularioProducto extends HTMLElement {
             btnSaveChanges.remove()
         })
 
+    }
+
+    mostrarLoadingdlg(titulo,shadow){
+        const loadingdlg=document.createElement('loading-dlg')
+        loadingdlg.setAttribute('titulo',titulo)
+        shadow.appendChild(loadingdlg)
     }
 
     #addFotoHandler(shadow) {

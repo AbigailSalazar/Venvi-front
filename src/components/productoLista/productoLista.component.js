@@ -12,7 +12,6 @@ export class ProductoLista extends HTMLElement {
         this.#render(shadow)
         this.#addElminarHandler(shadow)
         this.#addEditarHandler(shadow)
-        this.#cargarProducto(shadow)
         this.#agregarClickHandler(shadow)
     }
 
@@ -58,9 +57,7 @@ export class ProductoLista extends HTMLElement {
     }
 
 
-    #cargarProducto(shadow){
-        //TODO: cargar datos del producto desde el servicio
-    }
+   
 
     #addEditarHandler(shadow) {
         const btnEdit = shadow.querySelector('#editar')

@@ -12,13 +12,22 @@ section{
 section:hover{
     background-color: #F2F2F2;
     cursor: pointer;
+    
 }
 
 label{
-    width: 35%;
+    width: 100%;
     align-self: center;
     justify-content: center;
+}
+
+label:first-letter {text-transform: uppercase}
+
+label#nombre,label#categorias{
     text-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-color: #4097BF transparent;
+    scrollbar-width: thin;
 }
 
 label:hover{

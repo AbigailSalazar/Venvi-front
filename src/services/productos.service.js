@@ -173,7 +173,8 @@ export class ProductoService {
             "nombre": producto.nombre,
             "precio": producto.precio,
             "cantidadDisponible": producto.cantidadDisponible,
-            "descripcion": producto.descripcion //TODO: categorias
+            "descripcion": producto.descripcion,
+            "categorias":producto.categorias
         });
 
         const requestOptions = {
