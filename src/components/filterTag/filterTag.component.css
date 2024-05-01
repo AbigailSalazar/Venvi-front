@@ -23,3 +23,7 @@ button.icon {
   #cancel{
     background-image: url("/src/assets/X.svg");
   }
+
+  label{
+    text-transform: capitalize;
+}

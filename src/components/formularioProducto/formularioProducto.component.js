@@ -11,7 +11,8 @@ export class FormularioProducto extends HTMLElement {
         super()
         this.productoService = new ProductoService()
         this.categoriaService = new CategoriaService();
-
+        this.fotos = []
+        this.fotosToDelete=[]
     }
 
     connectedCallback() {
@@ -24,15 +25,16 @@ export class FormularioProducto extends HTMLElement {
     async #render(shadow) {
         //cargar info producto para editar
         const idProducto = this.getAttribute('idProducto')
-        var categorias=""
+        var categorias = ""
         let producto
         if (idProducto) {
             producto = await this.productoService.getById(idProducto)
-            if(producto.categorias){
-                for(const categoria of producto.categorias){
-                    categorias+=categoria.nombre+","
+            if (producto.categorias) {
+                for (const categoria of producto.categorias) {
+                    categorias += categoria.nombre + ","
                 }
             }
+            categorias = categorias.slice(0, -1);
         }
 
 
@@ -74,6 +76,7 @@ export class FormularioProducto extends HTMLElement {
     </section>
         `
         this.#addFotoHandler(shadow)
+        this.#addFotosToEdit(producto,shadow)
     }
 
     #agregarEstilo(shadow) {
@@ -85,15 +88,15 @@ export class FormularioProducto extends HTMLElement {
 
     #addPublicarHandler(shadow) {
         const idProducto = this.getAttribute('idProducto')
-        const btnSaveChanges= document.createElement('button')
+        const btnSaveChanges = document.createElement('button')
         const main = document.getElementsByTagName('main')
-        btnSaveChanges.textContent = idProducto?'Guardar cambios':'publicar producto'
+        btnSaveChanges.textContent = idProducto ? 'Guardar cambios' : 'publicar producto'
         main[0].appendChild(btnSaveChanges)
 
         const section = document.querySelector('#dinamic-content')
 
         btnSaveChanges.addEventListener('click', async () => {
-          
+
 
             //obtener datos de producto
             const form = shadow.querySelector('form')
@@ -108,33 +111,47 @@ export class FormularioProducto extends HTMLElement {
             //Crear categorias
             const categoriasObjetos = []
             for (const categoria of categorias) {
-                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria.toLowerCase(), categoria))
+                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria.toLowerCase().trim(), categoria))
                 categoriasObjetos.push(objCategoria)
             }
 
             const producto = new Producto(usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
                 console.log('Editando producto');
-                this.mostrarLoadingdlg("Guardando cambios",shadow)
+                this.mostrarLoadingdlg("Guardando cambios", shadow)
                 const respuesta = await this.productoService.editById(idProducto, producto)
                 console.log('respuesta: ', respuesta);
                 //TODO: editar fotos
+                if(this.fotosToDelete){
+                    await this.productoService.deleteFotosById(idProducto,this.fotosToDelete)
+                }
+                if(this.fotos){
+                    const filesData = new FormData()
+                    for (const file of this.fotos) {
+                        filesData.append('fotos', file)
+                    }
+
+                    console.log('Subiendo fotos..');
+                    await this.productoService.addFotos(idProducto, filesData)
+                }
+
             }
             else {
                 //Guardar producto
-                this.mostrarLoadingdlg("Publicando producto",shadow)
+                this.mostrarLoadingdlg("Publicando producto", shadow)
                 const respuesta = await this.productoService.addProductos(producto)
 
                 console.log('respuesta: ', respuesta);
                 const input = shadow.getElementById('fotos');
                 //subir imagenes
-                if (input.files&&respuesta) {   
+                if (this.fotos && respuesta) {
                     const filesData = new FormData()
-                    for (const file of input.files) {
+                    for (const file of this.fotos) {
                         filesData.append('fotos', file)
-                      }
-                    
-                    const respuestaFotos = await this.productoService.addFotos(respuesta._id, filesData)
+                    }
+
+                    console.log('Subiendo fotos..');
+                    await this.productoService.addFotos(respuesta._id, filesData)
                 }
             }
             //Para cambiar a la lista de productos
@@ -146,24 +163,45 @@ export class FormularioProducto extends HTMLElement {
 
     }
 
-    mostrarLoadingdlg(titulo,shadow){
-        const loadingdlg=document.createElement('loading-dlg')
-        loadingdlg.setAttribute('titulo',titulo)
+    #addFotosToEdit(producto,shadow) {
+        if (producto && producto.fotos) {
+            const fotosDiv = shadow.querySelector('.fotos');
+            for (const foto of producto.fotos) {
+                const container = document.createElement('div')
+                container.className = 'foto'
+                const btnRemove = document.createElement('button')
+                btnRemove.id = 'remove'
+                const img = document.createElement('img');
+                img.src = foto;
+
+                btnRemove.addEventListener('click', () => {//eliminar foto
+                    this.fotosToDelete.push(foto)
+                    container.remove()
+                })
+                container.appendChild(img)
+                container.appendChild(btnRemove)
+                fotosDiv.appendChild(container); // Añade la imagen al div fotos
+            }
+        }
+    }
+
+    mostrarLoadingdlg(titulo, shadow) {
+        const loadingdlg = document.createElement('loading-dlg')
+        loadingdlg.setAttribute('titulo', titulo)
         shadow.appendChild(loadingdlg)
     }
 
     #addFotoHandler(shadow) {
         const fotosDiv = shadow.querySelector('.fotos');
         const input = document.createElement('input');
-        input.id='fotos'
-        input.name = 'fotos'
+        input.id = 'fotos'
+        input.name = 'fotos[]'
         input.type = 'file';
         input.accept = 'image/*'; // Solo acepta archivos de imagen
         input.style.display = 'none'; // Oculta el input
 
         const form = shadow.querySelector('form')
         form.append(input)
-        //fotosDiv.appendChild(input); // Añade el input al div fotos
 
         const addButton = shadow.querySelector('.add');
         addButton.addEventListener('click', () => {
@@ -173,15 +211,32 @@ export class FormularioProducto extends HTMLElement {
         input.addEventListener('change', () => {
             const file = input.files[0]; // Obtiene el archivo seleccionado
             if (file) {
-                const reader = new FileReader();
-                reader.readAsDataURL(file); // Lee el archivo como una URL
-                reader.onload = () => {
-                    const imgUrl = reader.result;
-                    const img = document.createElement('img');
-                    img.src = imgUrl;
-                    fotosDiv.appendChild(img); // Añade la imagen al div fotos
-                };
+                this.agregarFoto(fotosDiv, file)
             }
         });
+    }
+
+    agregarFoto(fotosDiv, file) {
+        this.fotos.push(file)
+        const reader = new FileReader();
+        reader.readAsDataURL(file); // Lee el archivo como una URL
+        reader.onload = () => {
+            const imgUrl = reader.result;
+            const container = document.createElement('div')
+            container.className = 'foto'
+            const btnRemove = document.createElement('button')
+            btnRemove.id = 'remove'
+            const img = document.createElement('img');
+            img.src = imgUrl;
+
+            btnRemove.addEventListener('click', () => {//eliminar foto
+                this.fotos = this.fotos.filter(element => element !== file)
+                container.remove()
+                console.log(this.fotos);
+            })
+            container.appendChild(img)
+            container.appendChild(btnRemove)
+            fotosDiv.appendChild(container); // Añade la imagen al div fotos
+        };
     }
 }

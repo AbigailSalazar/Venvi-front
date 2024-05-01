@@ -196,6 +196,35 @@ export class ProductoService {
         }
     }
 
+    
+    async deleteFotosById(idProducto,fotos) {
+        const token = LocalStorageService.getItem('jwt')
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", token);
+        myHeaders.append("Content-Type", "application/json");
+        
+        const raw = JSON.stringify({
+            "fotos":fotos
+        });
+        const requestOptions = {
+            method: "DELETE",
+            headers: myHeaders,
+            body:raw,
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch(this.#urlServicio + "/" + idProducto+"/fotos", requestOptions)
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
+            return response
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
+
     async deleteById(idProducto) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();

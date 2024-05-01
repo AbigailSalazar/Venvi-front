@@ -60,6 +60,8 @@ div.fotos{
     overflow-x: scroll;
     flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
     width: 600px; /* Ancho fijo */
+    scrollbar-color: #4097BF transparent;
+    scrollbar-width: thin;
 }
 
 button.add{
@@ -76,8 +78,31 @@ button.add{
 button:hover{
     cursor: pointer;
 }
-
+div.foto{
+    display: flex;
+    border: 1px solid #E4E7E9;
+    border-radius: 3px;
+    position: relative;
+}
 div.fotos img{
     width: 200px;
     height: 200px;
+}
+
+button#remove {
+    background-color: white;
+    outline: none;
+    background-image: url('/src/assets/X.svg');
+    width: 20px;
+    height: 20px;
+    border-radius: 24px;
+    padding: 4px;
+    border-color: #E4E7E9;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
 }
