@@ -6,6 +6,7 @@ import { LoadingDlg } from "./src/components/popup/loading.component.js";
 import { PopUp } from "./src/components/popup/popup.component.js";
 import { Producto } from "./src/components/producto/producto.component.js";
 import { ProductoLista } from "./src/components/productoLista/productoLista.component.js";
+import { UsuarioConfig } from "./src/components/usuarioConfig/usuarioConfig.component.js";
 import { UsuarioNavSettings } from "./src/components/usuarioaNavSettings/usuarioNavSettings.component.js";
 
 
@@ -18,3 +19,4 @@ window.customElements.define("lista-productos",ListaProductos)
 window.customElements.define("filter-tag",FilterTag)
 window.customElements.define("form-producto",FormularioProducto)
 window.customElements.define("loading-dlg",LoadingDlg)
+window.customElements.define("user-settings",UsuarioConfig)

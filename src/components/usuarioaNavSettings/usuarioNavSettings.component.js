@@ -77,6 +77,11 @@ export class UsuarioNavSettings extends HTMLElement {
             const usuarioService = new UsuarioService()
             const usuario = await usuarioService.getById(idUsuario)
             console.log('Usuario info: ',usuario); //TODO: cambiar de pagina a form para editar datos 
+            const section = document.querySelector('#dinamic-content')
+            section.innerHTML = '';
+            const settings = document.createElement('user-settings')
+            settings.id=idUsuario
+            section.appendChild(settings)
         })  
 
 

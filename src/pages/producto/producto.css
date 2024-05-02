@@ -119,24 +119,36 @@ button#buy {
     color: #4097BF;
     width: 25%;
     padding: 8px;
+    border-radius: 3px;
 }
 
-button#add-to-cart {
+div#add-to-cart {
+    display: flex;
+    flex-direction: row;
     background-color: #4097BF;
     color: #FFFF;
     width: 50%;
     padding: 8px;
-    text-wrap: nowrap;
     text-align: center;
+    font-size: 16px;
+    align-content: center;
+    vertical-align: middle;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
-button img{
+div#add-to-cart img{
     border: none;
     filter: invert();
     width: 20px;
     height: 20px;
     margin-left: 5px;
     align-self: center;
+}
+
+div#add-to-cart p{
+    color: white;
 }
 
 button.range{
