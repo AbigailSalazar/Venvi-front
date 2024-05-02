@@ -14,7 +14,7 @@ main {
 
 div.imagenes{
     width: 35%;
-    height: 50%;
+    height: 500px;
     gap: 24px;
 }
 
@@ -34,9 +34,10 @@ div.vendedor{
 img{
     border: 1px solid #E4E7E9;
     border-radius: 4px;
+    cursor: pointer;
 }
 img.principal{
-    height: 50%;
+    height: 80%;
     width: 100%;
 }
 
@@ -45,17 +46,16 @@ div#carrusel{
     width: fit-content;
     height: 20%;
     overflow: hidden;
-    gap: 8px;
 }
 
 div#carrusel img.selected{
-    width: 100%;
-    border-color: #4097BF;
-    border: 2px;
+    border:1px solid #4097BF;
 }
 
 div#carrusel img{
     width: 96px;
+    height: 53px;
+    margin-right: 5px;
 }
 
 .titulo{

@@ -46,6 +46,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         descripcion.textContent = producto.descripcion
         inputCantidad.setAttribute('max', producto.cantidadDisponible)
         precio.textContent = "$"+producto.precio
+
+        cargarCarrusel(producto.fotos,imagenP)
+    }
+
+    function cargarCarrusel(fotos,imagenP){
+        const carrusel = document.getElementById('carrusel')
+        for(const foto of fotos){
+            const img = document.createElement('img')
+            img.src=foto
+            img.addEventListener('click',()=>{
+                imagenP.src=foto
+                const imgSelected = document.querySelector('.selected')
+                if(imgSelected){imgSelected.classList.remove('selected')}
+                img.classList.add('selected')
+            })
+            carrusel.appendChild(img)
+           
+        }
     }
 
     function cargarUsuarioInfo(usuario) {
