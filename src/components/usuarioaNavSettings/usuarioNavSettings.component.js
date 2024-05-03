@@ -53,13 +53,11 @@ export class UsuarioNavSettings extends HTMLElement {
 
     #agregarOptionHandler(shadow) {
         const opcionProductos = shadow.querySelector('#opcion-productos');
-        const btn = document.querySelector('#add-producto')
         opcionProductos.addEventListener('click', () => {
             const section = document.querySelector('#dinamic-content')
-            btn.setAttribute('id', "add-producto")
-            btn.textContent = 'Agregar producto'
             section.innerHTML = '';
             const formulario = document.createElement('lista-productos')
+            this.cambiarColorSeleccionado(shadow,opcionProductos)
             section.appendChild(formulario)
         })
 
@@ -71,21 +69,23 @@ export class UsuarioNavSettings extends HTMLElement {
 
         const opcionConfig = shadow.querySelector('#opcion-config');
         opcionConfig.addEventListener('click',async ()=>{
-            //obtenre info de usuario
-            const token = LocalStorageService.getItem('jwt')
-            const idUsuario = JwtService.decode(token).id
-            const usuarioService = new UsuarioService()
-            const usuario = await usuarioService.getById(idUsuario)
-            console.log('Usuario info: ',usuario); //TODO: cambiar de pagina a form para editar datos 
+        
             const section = document.querySelector('#dinamic-content')
             section.innerHTML = '';
             const settings = document.createElement('user-settings')
-            settings.id=idUsuario
+
+            this.cambiarColorSeleccionado(shadow,opcionConfig)
             section.appendChild(settings)
         })  
 
 
 
+    }
+
+    cambiarColorSeleccionado(shadow,div){
+        const opcionSelected = shadow.querySelector('.selected')
+        if (opcionSelected) { opcionSelected.classList.remove('selected')}
+        div.classList.add('selected')
     }
 
     #agregarEstilo(shadow) {

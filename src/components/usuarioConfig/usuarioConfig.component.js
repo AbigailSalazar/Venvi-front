@@ -1,25 +1,32 @@
+import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { JwtService } from "../../services/jwt.service.js"
+import { UsuarioService } from "../../services/usuarios.service.js"
 
-export class UsuarioConfig extends HTMLElement{
+export class UsuarioConfig extends HTMLElement {
 
     constructor() {
         super()
     }
 
-    connectedCallback(){
-        const shadow = this.attachShadow({mode:"open"})
+    connectedCallback() {
+        const shadow = this.attachShadow({ mode: "open" })
         this.#agregarEstilo(shadow)
         this.#render(shadow)
-        this.#agregarClickHandler()
+        this.usuarioService = new UsuarioService()
+        this.#cargarInfo(shadow)
+        this.#addActualizarPerfilHandler(shadow)
     }
 
     #render(shadow) {
         const btn = document.querySelector('#add-producto')
-        btn.remove()
+        if(btn){btn.remove()}
+        
         shadow.innerHTML += `
         <form>
         <div class="info">
         <h3>Configuración de la cuenta</h3>
         <div class="flex">
+            <input type="file" accept="image/*" hidden id="fileInput">
             <img id="foto" src="https://placehold.co/172x172?text=image-user">
             <div class="grid">
                 <div class="inputContainer half">
@@ -30,7 +37,7 @@ export class UsuarioConfig extends HTMLElement{
                     <label>Email</label>
                     <input type="text" id="email" disabled>
                 </div>
-                <button id="save-name">Guardar cambios</button>
+                <button id="save-perfil">Guardar cambios</button>
             </div>
         </div>
     
@@ -83,7 +90,7 @@ export class UsuarioConfig extends HTMLElement{
         <label>Confirmar contraseña</label>
         <input type="text" id="contraseña-repetir">
     </div>
-    <button id="contraseña">Cambiar contraseña</button>
+    <button id="save-password">Cambiar contraseña</button>
 </div>
 </form>
         `
@@ -91,13 +98,72 @@ export class UsuarioConfig extends HTMLElement{
 
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
-        link.setAttribute("rel","stylesheet")
-        link.setAttribute("href","../src/components/usuarioConfig/usuarioConfig.component.css")
+        link.setAttribute("rel", "stylesheet")
+        link.setAttribute("href", "../src/components/usuarioConfig/usuarioConfig.component.css")
         shadow.appendChild(link)
     }
 
-    #agregarClickHandler(){
-      
+    async #cargarInfo(shadow){
+            //obtenre info de usuario
+            const token = LocalStorageService.getItem('jwt')
+            this.id= JwtService.decode(token).id
+            this.usuario = await this.usuarioService.getById(this.id)
+            const imgPerfil = shadow.querySelector('#foto')
+            const fileInput = shadow.querySelector('#fileInput')
+            const inputNombre = shadow.querySelector('#nombre')
+            const inputEmail = shadow.querySelector('#email')
+
+            imgPerfil.src=this.usuario.foto
+            inputNombre.value = this.usuario.nombre
+            inputEmail.value=this.usuario.correo
+
+            
+    }
+
+    #addActualizarPerfilHandler(shadow) {
+        const imgPerfil = shadow.querySelector('#foto')
+        const fileInput = shadow.querySelector('#fileInput')
+        const inputNombre = shadow.querySelector('#nombre')
+        const btnGuardar = shadow.querySelector('#save-perfil')
+
+        //handler para cambiar foto de perfil
+        imgPerfil.addEventListener('click', () => {
+            fileInput.click()
+        })
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0]; // Obtiene el archivo seleccionado
+            if (file) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file); // Lee el archivo como una URL
+                reader.onload = () => {
+                    imgPerfil.src=reader.result;
+                }
+            }
+        });
+
+        btnGuardar.addEventListener('click',async (event)=>{
+            event.preventDefault();
+            const dialog = this.mostrarLoadingdlg("Guardando cambios",shadow)
+            if(fileInput.files[0]){
+                const formData = new FormData()
+                formData.append('foto',fileInput.files[0])
+                console.log('Guardando foto..');
+                await this.usuarioService.actualizarFoto(this.id,formData)
+            }
+            if(inputNombre.value!==this.usuario.nombre){
+                
+                await this.usuarioService.ActualizarById(this.id,{nombre:inputNombre.value})
+            }
+            dialog.remove()
+        })
+    }
+
+    mostrarLoadingdlg(titulo, shadow) {
+        const loadingdlg = document.createElement('loading-dlg')
+        loadingdlg.setAttribute('titulo', titulo)
+        shadow.appendChild(loadingdlg)
+        return loadingdlg
     }
 
 

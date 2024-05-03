@@ -121,7 +121,7 @@ export class FormularioProducto extends HTMLElement {
                 this.mostrarLoadingdlg("Guardando cambios", shadow)
                 const respuesta = await this.productoService.editById(idProducto, producto)
                 console.log('respuesta: ', respuesta);
-                //TODO: editar fotos
+
                 if(this.fotosToDelete){
                     await this.productoService.deleteFotosById(idProducto,this.fotosToDelete)
                 }

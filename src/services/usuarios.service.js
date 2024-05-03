@@ -49,6 +49,25 @@ export class UsuarioService {
             .catch((error) => console.error(error));
     }
 
+    async actualizarFoto(idUsuario,fotos){
+        
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
+        const requestOptions = {
+            method: "PATCH",
+            headers:myHeaders,
+            body: fotos,
+            redirect: "follow"
+        };
+
+        try {
+            console.log('Guardando foto..');
+            const response = await fetch(this.#urlServicio+"/"+idUsuario+"/foto", requestOptions);
+            return response;
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
     
     async getById(idUsuario){
         const token = LocalStorageService.getItem('jwt')
@@ -63,6 +82,10 @@ export class UsuarioService {
 
         try {
             const response = await fetch(this.#urlServicio+"/"+idUsuario, requestOptions)
+            if(response.status==403){
+                this.cerrarSesiónExpirada()
+                return
+            }
             const usuario = await response.json();
             return usuario;
         } catch (error) {
@@ -85,8 +108,10 @@ export class UsuarioService {
             console.error(error); //TODO: manejar los errores
         }
     }
+
+
     
-    async editById(idUsuario, usuario) {
+    async ActualizarById(idUsuario, usuario) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();
         myHeaders.append("Authorization", token);
@@ -94,9 +119,7 @@ export class UsuarioService {
 
         const raw = JSON.stringify({
             "nombre": usuario.nombre,
-            "foto": usuario.foto,
             "password": usuario.password,
-            "correo": usuario.correo
           });
 
         const requestOptions = {
@@ -112,5 +135,10 @@ export class UsuarioService {
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
+    }
+    cerrarSesiónExpirada() {
+        alert('Tu sesión ha expirado')
+        window.location.href = 'src/pages/login/login.html'
+        LocalStorageService.deleteItem('jwt')
     }
 }
