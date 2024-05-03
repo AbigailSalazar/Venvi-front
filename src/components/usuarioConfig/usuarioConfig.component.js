@@ -15,6 +15,7 @@ export class UsuarioConfig extends HTMLElement {
         this.usuarioService = new UsuarioService()
         this.#cargarInfo(shadow)
         this.#addActualizarPerfilHandler(shadow)
+        this.#addActualizarPassword(shadow)
     }
 
     #render(shadow) {
@@ -80,15 +81,15 @@ export class UsuarioConfig extends HTMLElement {
     <h3>Cambiar contraseña</h3>
     <div class="inputContainer">
         <label>Contraseña actual</label>
-        <input type="text" id="contraseña-actual">
+        <input type="password" id="passw-actual">
     </div>
     <div class="inputContainer">
         <label>Nueva contraseña</label>
-        <input type="text" id="contraseña-nueva">
+        <input type="password" id="passw-nueva">
     </div>
     <div class="inputContainer">
         <label>Confirmar contraseña</label>
-        <input type="text" id="contraseña-repetir">
+        <input type="password" id="passw-repetir">
     </div>
     <button id="save-password">Cambiar contraseña</button>
 </div>
@@ -144,7 +145,7 @@ export class UsuarioConfig extends HTMLElement {
 
         btnGuardar.addEventListener('click',async (event)=>{
             event.preventDefault();
-            const dialog = this.mostrarLoadingdlg("Guardando cambios",shadow)
+            const dialog = this.mostrarLoadingdlg("Guardando cambios...",shadow)
             if(fileInput.files[0]){
                 const formData = new FormData()
                 formData.append('foto',fileInput.files[0])
@@ -159,12 +160,46 @@ export class UsuarioConfig extends HTMLElement {
         })
     }
 
+    #addActualizarPassword(shadow){
+        const passwActual = shadow.querySelector('#passw-actual')
+        const passwNueva = shadow.querySelector('#passw-nueva')
+        const passwRepetir = shadow.querySelector('#passw-repetir')
+        const btnGuardar = shadow.querySelector('#save-password')
+
+        btnGuardar.addEventListener('click',async (event)=>{
+            event.preventDefault()
+           
+            if(this.usuario.password===passwActual.value){
+                if(passwNueva.value&&passwRepetir.value&&passwNueva.value===passwRepetir.value){
+                    await this.usuarioService.ActualizarById(this.id,{password:passwNueva.value})
+                    passwActual.value=""
+                    passwNueva.value=""
+                    passwRepetir.value=""
+                    this.mostrarLoadingdlg("Cambios guardados correctamente",shadow)
+                }
+                else{
+                    this.mostrarErrordlg('Las contraseñas no coinciden',shadow)
+                }
+            }
+            else{
+                this.mostrarErrordlg('Contraseña incorrecta',shadow)
+            }
+        })
+
+    }
+  
+    mostrarErrordlg(titulo, shadow) {
+        const errorDlg = document.createElement('error-dlg')
+        errorDlg.setAttribute('titulo', titulo)
+        shadow.appendChild(errorDlg)
+        return errorDlg
+    }
+
     mostrarLoadingdlg(titulo, shadow) {
         const loadingdlg = document.createElement('loading-dlg')
         loadingdlg.setAttribute('titulo', titulo)
         shadow.appendChild(loadingdlg)
         return loadingdlg
     }
-
 
 }

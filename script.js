@@ -2,6 +2,7 @@ import { FilterTag } from "./src/components/filterTag/filterTag.component.js";
 import { FormularioProducto } from "./src/components/formularioProducto/formularioProducto.component.js";
 import { ListaProductos } from "./src/components/listaProductos/listaProductos.component.js";
 import { Navbar } from "./src/components/navbar/navbar.component.js";
+import { ErrorDialog } from "./src/components/popup/errordlg.component.js";
 import { LoadingDlg } from "./src/components/popup/loading.component.js";
 import { PopUp } from "./src/components/popup/popup.component.js";
 import { Producto } from "./src/components/producto/producto.component.js";
@@ -19,4 +20,5 @@ window.customElements.define("lista-productos",ListaProductos)
 window.customElements.define("filter-tag",FilterTag)
 window.customElements.define("form-producto",FormularioProducto)
 window.customElements.define("loading-dlg",LoadingDlg)
+window.customElements.define("error-dlg",ErrorDialog)
 window.customElements.define("user-settings",UsuarioConfig)

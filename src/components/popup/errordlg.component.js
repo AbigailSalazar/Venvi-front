@@ -15,7 +15,7 @@ export class ErrorDialog extends HTMLElement {
     #render(shadow) {
 
         //const dialog = document.querySelector('confirmation-dialog')
-        const titulo=this.getAttribute('title')
+        const titulo=this.getAttribute('titulo')
         const message=this.textContent
 
         shadow.innerHTML += `
@@ -25,7 +25,7 @@ export class ErrorDialog extends HTMLElement {
             <img src="/src/assets/exclamation.svg">
                 <div>
                 <h2>${titulo}</h2>
-                <p>${message}</p>
+                <p>${message?message:""}</p>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@ export class ErrorDialog extends HTMLElement {
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
         link.setAttribute("rel", "stylesheet")
-        link.setAttribute("href", "/../src/components/popups/popup.component.css")
+        link.setAttribute("href", "../src/components/popup/popup.component.css")
         shadow.appendChild(link)
     }
 

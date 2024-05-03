@@ -16,7 +16,7 @@ export class LoadingDlg extends HTMLElement{
         <Dialog class="popup" >
             <img id="exit" src="/src/assets/x-pop-up.svg">
             <div id="loading"><div>
-            <h2 id="tittle">${titulo?titulo:"Cargando"}...</h2>
+            <h2 id="tittle">${titulo?titulo:"Cargando..."}</h2>
             </div>
         </Dialog>    
         `
