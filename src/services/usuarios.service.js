@@ -39,50 +39,54 @@ export class UsuarioService {
             redirect: "follow"
         };
 
-        await fetch(this.#urlServicio + "/autenticar", requestOptions)
-        .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                LocalStorageService.setItem("jwt", data.token); // Guardar el JWT en el localStorage
-                window.location.href = '/index.html';
-            })
-            .catch((error) => console.error(error));
+        try {
+            const response = await fetch(this.#urlServicio + "/autenticar", requestOptions)
+            const json = await response.json();
+            if (response.status === 401) {
+                return false
+            }
+            LocalStorageService.setItem("jwt", json.token); // Guardar el JWT en el localStorage
+            window.location.href = '/index.html';
+        }
+        catch (error) {
+        }
+        return false
     }
 
-    async actualizarFoto(idUsuario,fotos){
-        
+    async actualizarFoto(idUsuario, fotos) {
+
         const myHeaders = new Headers();
         myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
         const requestOptions = {
             method: "PATCH",
-            headers:myHeaders,
+            headers: myHeaders,
             body: fotos,
             redirect: "follow"
         };
 
         try {
             console.log('Guardando foto..');
-            const response = await fetch(this.#urlServicio+"/"+idUsuario+"/foto", requestOptions);
+            const response = await fetch(this.#urlServicio + "/" + idUsuario + "/foto", requestOptions);
             return response;
         } catch (error) {
             console.error(error); //TODO: manejar los errores
         }
     }
-    
-    async getById(idUsuario){
+
+    async getById(idUsuario) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();
         myHeaders.append("Authorization", token);
 
         const requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow"
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
         };
 
         try {
-            const response = await fetch(this.#urlServicio+"/"+idUsuario, requestOptions)
-            if(response.status==403){
+            const response = await fetch(this.#urlServicio + "/" + idUsuario, requestOptions)
+            if (response.status == 403) {
                 this.cerrarSesiónExpirada()
                 return
             }
@@ -93,15 +97,15 @@ export class UsuarioService {
         }
     }
 
-    async getPerfilById(idUsuario){
+    async getPerfilById(idUsuario) {
 
         const requestOptions = {
-          method: "GET",
-          redirect: "follow"
+            method: "GET",
+            redirect: "follow"
         };
 
         try {
-            const response = await fetch(this.#urlServicio+"/perfil/"+idUsuario, requestOptions)
+            const response = await fetch(this.#urlServicio + "/perfil/" + idUsuario, requestOptions)
             const usuario = await response.json();
             return usuario;
         } catch (error) {
@@ -110,7 +114,7 @@ export class UsuarioService {
     }
 
 
-    
+
     async ActualizarById(idUsuario, usuario) {
         const token = LocalStorageService.getItem('jwt')
         const myHeaders = new Headers();
@@ -120,7 +124,7 @@ export class UsuarioService {
         const raw = JSON.stringify({
             "nombre": usuario.nombre,
             "password": usuario.password,
-          });
+        });
 
         const requestOptions = {
             method: "PUT",
@@ -130,7 +134,7 @@ export class UsuarioService {
         };
 
         try {
-            const response = await fetch(this.#urlServicio+"/"+idUsuario, requestOptions)
+            const response = await fetch(this.#urlServicio + "/" + idUsuario, requestOptions)
             return response
         } catch (error) {
             console.error(error); //TODO: manejar los errores

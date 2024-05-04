@@ -44,7 +44,7 @@ export class ErrorDialog extends HTMLElement {
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
         link.setAttribute("rel", "stylesheet")
-        link.setAttribute("href", "../src/components/popup/popup.component.css")
+        link.setAttribute("href", "/src/components/popup/popup.component.css")
         shadow.appendChild(link)
     }
 
