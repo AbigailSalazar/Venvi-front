@@ -95,9 +95,8 @@ export class ProductoService {
         }
     }
 
-    async getByUser() {
-        const token = LocalStorageService.getItem('jwt')
-        const idUsuario = JwtService.decode(token).id
+    async getByUser(idUsuario) {
+
         const requestOptions = {
             method: "GET",
             redirect: "follow"

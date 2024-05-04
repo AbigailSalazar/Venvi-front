@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: 'Public Sans', sans-serif;
+}
+main {
+    display: flex;
+    padding-top: 40px;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin: 16px;
+    flex-direction: column;
+}
+
+section.bordered-container{
+    font-size: 14px;
+    border: 1px solid #E4E7E9; 
+    outline: none; 
+    border-radius: 3px;
+    margin: 0;
+    padding: 10px;
+    width: 70%;
+    color: #191C1F;
+}
+
+
+h3{
+    text-transform: uppercase;
+    width: 100%;
+    border-bottom: 1px solid #E4E7E9;
+    padding: 8px;
+}
+
+label{
+    font-size: 14px;
+    color: #191C1F;
+    text-align: center;
+}
+
+#nombre, #rating {
+    border: 1px solid #E4E7E9;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+div.fotos{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    height: auto;
+    overflow-x: scroll;
+    flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+    width: 100%; /* Ancho fijo */
+    scrollbar-color: #4097BF transparent;
+    scrollbar-width: thin;
+}
+
+div.foto{
+    display: flex;
+    border: 1px solid #E4E7E9;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: border-color .2s;
+    transition: box-shadow .1s;
+}
+div.foto:hover{
+    border-color: #4097BF;
+    box-shadow:
+    0px 9px 40px rgba(0, 0, 0, 0.1);
+}
+
+div.fotos img{
+    width: 200px;
+    height: 200px;
+}
+
+img.usuario{
+    height: 172px;
+    width: 172px;
+    border-radius: 50%;
+    margin-right: 16px;
+    transition: border-color 0.3s;
+}
+
+div.flex{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+div.container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

@@ -1,4 +1,5 @@
 import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { JwtService } from "../../services/jwt.service.js"
 import { ProductoService } from "../../services/productos.service.js"
 
 export class ListaProductos extends HTMLElement {
@@ -72,8 +73,10 @@ export class ListaProductos extends HTMLElement {
         //obtener productos de servicio y agregarlos
         const listaProductos = shadow.querySelector('#content')
 
+        const token = LocalStorageService.getItem('jwt')
+        const idUsuario = JwtService.decode(token).id
         const productoService = new ProductoService()
-        const productos = await productoService.getByUser()
+        const productos = await productoService.getByUser(idUsuario)
 
         productos.map((producto) => {
             console.log(producto);

@@ -86,6 +86,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('usuario', usuario);
         vendedorNombre.innerHTML = `Nombre: <strong>${usuario.nombre}</strong>`
         vendedorFoto.setAttribute('src', usuario.foto)
+        vendedorFoto.addEventListener('click',()=>{
+            window.location.href = '/src/pages/perfil/perfil.html?id='+usuario._id;//todo: cargar info usuario
+        })
         vendedorRating.innerHTML = `Rating: <strong>${usuario.rating}</strong>`
     }
 })
