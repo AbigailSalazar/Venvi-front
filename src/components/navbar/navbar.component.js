@@ -65,6 +65,11 @@ export class Navbar extends HTMLElement {
             const searchText = inputSearch.value
             LocalStorageService.setItem('search', searchText)
             const btnAplicarFiltros = document.querySelector('#aplicar-filtros');
+            //Si no esta en la página principal
+            if (!btnAplicarFiltros) {
+                window.location.href = '/index.html';
+            }
+
             btnAplicarFiltros.click()
         })
         inputSearch.addEventListener('input', () => {
@@ -77,6 +82,11 @@ export class Navbar extends HTMLElement {
                 const searchText = inputSearch.value
                 LocalStorageService.setItem('search', searchText)
                 const btnAplicarFiltros = document.querySelector('#aplicar-filtros');
+                //Si no esta en la página principal
+                if (!btnAplicarFiltros) {
+                    window.location.href = '/index.html';
+                }
+
                 btnAplicarFiltros.click()
             }
         });

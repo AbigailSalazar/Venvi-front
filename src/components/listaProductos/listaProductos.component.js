@@ -44,7 +44,9 @@ export class ListaProductos extends HTMLElement {
     }
 
     #agregarBotonAdd() {
-        const btnAdd = document.createElement('button')
+        const btn=document.querySelector('button')
+        if(!btn){
+            const btnAdd = document.createElement('button')
         btnAdd.id="add-producto"
         const main = document.getElementsByTagName('main')
 
@@ -62,6 +64,8 @@ export class ListaProductos extends HTMLElement {
             section.appendChild(formulario)
             btnAdd.remove()
         })
+        }
+        
     }
 
     async #cargarProductos(shadow) {

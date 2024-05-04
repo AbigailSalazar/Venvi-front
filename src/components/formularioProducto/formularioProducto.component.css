@@ -54,12 +54,11 @@ div.divided{
 div.fotos{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 24px;
     height: auto;
-    padding: 24px;
     overflow-x: scroll;
     flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
-    width: 600px; /* Ancho fijo */
+    width: 100%; /* Ancho fijo */
     scrollbar-color: #4097BF transparent;
     scrollbar-width: thin;
 }

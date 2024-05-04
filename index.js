@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const productoService = new ProductoService()
 
-    cargarTodosProductos()
-
 
     // Agregar evento para desactivar radio buttons al usar los input para el precio
     inputPrecioMin.addEventListener('input', desactivarRadioButtons);
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     sortSelector.addEventListener('change', () => {
         const sortType = sortSelector.value
         const sortedProductos = sortProductos(sortType)
-        LocalStorageService.setItem('sort',sortType)
+        LocalStorageService.setItem('sort', sortType)
 
         renderProductos(sortedProductos)
     })
@@ -68,6 +66,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             categoriaList.appendChild(li);
         });
     });
+
+    
+    //verificar si se hizo una busqueda
+    const nombreBuscado = LocalStorageService.getItem('search')
+    if (nombreBuscado) {
+        const nav = document.getElementsByTagName('nav-bar')
+        const inputSearch = nav[0].shadowRoot.querySelector('#search')
+        inputSearch.value=nombreBuscado
+        aplicarFiltros()
+    }
+    else {
+        cargarTodosProductos()
+    }
 
     async function aplicarFiltros() {
 
@@ -115,9 +126,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 categoriaSelected[0] ? categoriaSelected[0].value : null,
                 precioMin,
                 precioMax)
-            
+
             const sortType = LocalStorageService.getItem('sort')
-            if(sortType){
+            if (sortType) {
                 productos = sortProductos(sortType)
             }
             renderProductos(productos)
