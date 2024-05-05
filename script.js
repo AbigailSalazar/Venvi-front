@@ -1,3 +1,4 @@
+import { ErrorPage } from "./src/components/error/error.component.js";
 import { FilterTag } from "./src/components/filterTag/filterTag.component.js";
 import { FormularioProducto } from "./src/components/formularioProducto/formularioProducto.component.js";
 import { ListaProductos } from "./src/components/listaProductos/listaProductos.component.js";
@@ -22,3 +23,4 @@ window.customElements.define("form-producto",FormularioProducto)
 window.customElements.define("loading-dlg",LoadingDlg)
 window.customElements.define("error-dlg",ErrorDialog)
 window.customElements.define("user-settings",UsuarioConfig)
+window.customElements.define("error-page",ErrorPage)

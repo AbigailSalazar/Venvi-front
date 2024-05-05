@@ -23,6 +23,10 @@
     background-color: #FFFF;
 }
 
+.error{
+    border: 1px solid #ff3a3a;
+}
+
 h2 {
     font-size: 22px;
     text-align: left;

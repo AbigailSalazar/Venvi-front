@@ -19,7 +19,7 @@ export class ErrorDialog extends HTMLElement {
         const message=this.textContent
 
         shadow.innerHTML += `
-        <div class="popup" id="error">
+        <Dialog class="popup error" id="error">
             <img id="exit" src="/src/assets/x.svg">
             <div class="content">
             <img src="/src/assets/exclamation.svg">
@@ -29,7 +29,7 @@ export class ErrorDialog extends HTMLElement {
                 </div>
             </div>
 
-        </div>
+        </Dialog>
         
         `
     }
