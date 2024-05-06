@@ -42,15 +42,17 @@ export class UsuarioService {
         try {
             const response = await fetch(this.#urlServicio + "/autenticar", requestOptions)
             const json = await response.json();
-            if (response.status === 401) {
+            if (response.status !== 200) {
                 return false
             }
-            LocalStorageService.setItem("jwt", json.token); // Guardar el JWT en el localStorage
-            window.location.href = '/index.html';
+            if(json){
+                 LocalStorageService.setItem("jwt", json.token); // Guardar el JWT en el localStorage
+                window.location.href = '/index.html';
+            }
         }
         catch (error) {
+            return false
         }
-        return false
     }
 
     async actualizarFoto(idUsuario, fotos) {
