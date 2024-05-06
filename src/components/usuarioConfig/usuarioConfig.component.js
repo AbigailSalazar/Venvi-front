@@ -1,5 +1,8 @@
+import { DireccionDeEnvio } from "../../objects/DireccionDeEnvio.js"
 import { LocalStorageService } from "../../services/LocalStorage.service.js"
+import { DireccionesService } from "../../services/direcciones.service.js"
 import { JwtService } from "../../services/jwt.service.js"
+import { LocacionesService } from "../../services/locaciones.service.js"
 import { UsuarioService } from "../../services/usuarios.service.js"
 
 export class UsuarioConfig extends HTMLElement {
@@ -8,20 +11,26 @@ export class UsuarioConfig extends HTMLElement {
         super()
     }
 
-    connectedCallback() {
+    async connectedCallback() {
         const shadow = this.attachShadow({ mode: "open" })
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.usuarioService = new UsuarioService()
-        this.#cargarInfo(shadow)
+        this.direccionService = new DireccionesService()
+        this.locacionesService = new LocacionesService()
+        this.direccionInfo=null
+        await this.#cargarInfo(shadow)
+        this.#cargarLocaciones(shadow)
+        this.#actualizarDireccion(shadow)
         this.#addActualizarPerfilHandler(shadow)
         this.#addActualizarPassword(shadow)
+        
     }
 
     #render(shadow) {
         const btn = document.querySelector('#add-producto')
-        if(btn){btn.remove()}
-        
+        if (btn) { btn.remove() }
+
         shadow.innerHTML += `
         <form>
         <div class="info">
@@ -51,7 +60,7 @@ export class UsuarioConfig extends HTMLElement {
 </div>
 <div class="inputContainer half">
     <label>Número</label>
-    <input type="number" id="number">
+    <input type="number" id="numero">
 </div>
 <div class="inputContainer">
     <label>País</label>
@@ -104,23 +113,95 @@ export class UsuarioConfig extends HTMLElement {
         shadow.appendChild(link)
     }
 
-    async #cargarInfo(shadow){
-            //obtenre info de usuario
-            const token = LocalStorageService.getItem('jwt')
-            this.id= JwtService.decode(token).id
-            this.usuario = await this.usuarioService.getById(this.id)
-            const imgPerfil = shadow.querySelector('#foto')
-            const fileInput = shadow.querySelector('#fileInput')
-            const inputNombre = shadow.querySelector('#nombre')
-            const inputEmail = shadow.querySelector('#email')
+    async #cargarInfo(shadow) {
+        //obtenre info de usuario
+        const token = LocalStorageService.getItem('jwt')
+        this.id = JwtService.decode(token).id
+        this.usuario = await this.usuarioService.getById(this.id)
+        const imgPerfil = shadow.querySelector('#foto')
+        const fileInput = shadow.querySelector('#fileInput')
+        const inputNombre = shadow.querySelector('#nombre')
+        const inputEmail = shadow.querySelector('#email')
 
-            imgPerfil.src=this.usuario.foto
-            inputNombre.value = this.usuario.nombre
-            inputEmail.value=this.usuario.correo
+        imgPerfil.src = this.usuario.foto
+        inputNombre.value = this.usuario.nombre
+        inputEmail.value = this.usuario.correo
 
-            
+        //cargar info de direccion
+        const calleInput = shadow.querySelector('#calle')
+        const numeroInput = shadow.querySelector('#numero')
+        const postalInput = shadow.querySelector('#postal')
+        try {
+            this.direccionInfo = await this.direccionService.getByIdUser(this.id)
+            if (this.direccionInfo) {
+                calleInput.value = this.direccionInfo.calle
+                numeroInput.value = this.direccionInfo.numero
+                postalInput.value = this.direccionInfo.codigoPostal
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
+    async #cargarLocaciones(shadow) {//Cargar paises, estados y ciudades a los combobox
+        const paisesSelect = shadow.querySelector('#pais')
+        const estadosSelect = shadow.querySelector('#estado')
+        const ciudadSelect = shadow.querySelector('#ciudad')
+
+        const paises = await this.locacionesService.obtenerPaises()
+        for (const pais of paises) {
+            const opcion = document.createElement('option')
+            opcion.value = pais.name
+            opcion.text = pais.name
+            paisesSelect.appendChild(opcion)
+        }
+
+        
+        if(this.direccionInfo){
+            paisesSelect.value=this.direccionInfo.pais
+            await this.llenarEstados(this.direccionInfo.pais,estadosSelect)
+            estadosSelect.value=this.direccionInfo.estado
+            await this.llenarCiudades(this.direccionInfo.pais,this.direccionInfo.estado,ciudadSelect)
+            ciudadSelect.value=this.direccionInfo.ciudad
+        }
+
+        paisesSelect.addEventListener('change', async () => {
+            ciudadSelect.innerHTML = ''
+            estadosSelect.innerHTML = ''
+            const pais = paisesSelect.options[paisesSelect.selectedIndex].text
+            this.llenarEstados(pais,estadosSelect)
+
+        })
+
+        estadosSelect.addEventListener('change', async () => {
+            ciudadSelect.innerHTML = ''
+            const pais = paisesSelect.options[paisesSelect.selectedIndex].text
+            const estado = estadosSelect.options[estadosSelect.selectedIndex].text
+            this.llenarCiudades(pais,estado,ciudadSelect)
+
+        })
+    }
+
+    async llenarEstados(pais,select){
+        const estados = await this.locacionesService.obtenerEstados(pais)
+            for (const estado of estados) {
+                const opcion = document.createElement('option')
+                opcion.value = estado.name
+                opcion.text = estado.name
+                select.appendChild(opcion)
+            }
+    }
+    async llenarCiudades(pais,estado,select){
+        
+        const ciudades = await this.locacionesService.obtenerCiudades(pais, estado)
+        for (const ciudad of ciudades) {
+            const opcion = document.createElement('option')
+            opcion.value = ciudad
+            opcion.text = ciudad
+            select.appendChild(opcion)
+        }
+    }
     #addActualizarPerfilHandler(shadow) {
         const imgPerfil = shadow.querySelector('#foto')
         const fileInput = shadow.querySelector('#fileInput')
@@ -138,56 +219,86 @@ export class UsuarioConfig extends HTMLElement {
                 const reader = new FileReader();
                 reader.readAsDataURL(file); // Lee el archivo como una URL
                 reader.onload = () => {
-                    imgPerfil.src=reader.result;
+                    imgPerfil.src = reader.result;
                 }
             }
         });
 
-        btnGuardar.addEventListener('click',async (event)=>{
+        btnGuardar.addEventListener('click', async (event) => {
             event.preventDefault();
-            const dialog = this.mostrarLoadingdlg("Guardando cambios...",shadow)
-            if(fileInput.files[0]){
+            const dialog = this.mostrarLoadingdlg("Guardando cambios...", shadow)
+            if (fileInput.files[0]) {
                 const formData = new FormData()
-                formData.append('foto',fileInput.files[0])
+                formData.append('foto', fileInput.files[0])
                 console.log('Guardando foto..');
-                await this.usuarioService.actualizarFoto(this.id,formData)
+                await this.usuarioService.actualizarFoto(this.id, formData)
             }
-            if(inputNombre.value!==this.usuario.nombre){
-                
-                await this.usuarioService.ActualizarById(this.id,{nombre:inputNombre.value})
+            if (inputNombre.value !== this.usuario.nombre) {
+
+                await this.usuarioService.ActualizarById(this.id, { nombre: inputNombre.value })
             }
             dialog.remove()
         })
     }
 
-    #addActualizarPassword(shadow){
+    async #actualizarDireccion(shadow) {
+        const paisesSelect = shadow.querySelector('#pais')
+        const estadosSelect = shadow.querySelector('#estado')
+        const ciudadSelect = shadow.querySelector('#ciudad')
+        const calleInput = shadow.querySelector('#calle')
+        const numeroInput = shadow.querySelector('#numero')
+        const postalInput = shadow.querySelector('#postal')
+
+        const btnGuardar = shadow.querySelector('#save-direccion')
+        btnGuardar.addEventListener('click', async (event) => {
+            event.preventDefault()
+            
+            const pais = paisesSelect.options[paisesSelect.selectedIndex].text
+            const estado = estadosSelect.options[estadosSelect.selectedIndex].text
+            const ciudad = ciudadSelect.options[ciudadSelect.selectedIndex].text
+            const direccionNueva = new DireccionDeEnvio(null, this.id, calleInput.value, numeroInput.value, estado, ciudad, postalInput.value, pais)
+            if (this.direccionInfo===null) {//si ya existe una dirección actualizar
+                console.log('guardando direccion');
+               await this.direccionService.registrarDireccion(direccionNueva)
+            }
+            else {//si no crear una nueva
+                console.log('actualizando direccion');
+                await this.direccionService.ActualizarDireccion(this.id, direccionNueva)
+            }
+            this.mostrarLoadingdlg("Dirección guardada", shadow)
+        })
+
+
+    }
+
+    #addActualizarPassword(shadow) {
         const passwActual = shadow.querySelector('#passw-actual')
         const passwNueva = shadow.querySelector('#passw-nueva')
         const passwRepetir = shadow.querySelector('#passw-repetir')
         const btnGuardar = shadow.querySelector('#save-password')
 
-        btnGuardar.addEventListener('click',async (event)=>{
+        btnGuardar.addEventListener('click', async (event) => {
             event.preventDefault()
-           
-            if(this.usuario.password===passwActual.value){
-                if(passwNueva.value&&passwRepetir.value&&passwNueva.value===passwRepetir.value){
-                    await this.usuarioService.ActualizarById(this.id,{password:passwNueva.value})
-                    passwActual.value=""
-                    passwNueva.value=""
-                    passwRepetir.value=""
-                    this.mostrarLoadingdlg("Cambios guardados correctamente",shadow)
+
+            if (this.usuario.password === passwActual.value) {
+                if (passwNueva.value && passwRepetir.value && passwNueva.value === passwRepetir.value) {
+                    await this.usuarioService.ActualizarById(this.id, { password: passwNueva.value })
+                    passwActual.value = ""
+                    passwNueva.value = ""
+                    passwRepetir.value = ""
+                    this.mostrarLoadingdlg("Cambios guardados correctamente", shadow)
                 }
-                else{
-                    this.mostrarErrordlg('Las contraseñas no coinciden',shadow)
+                else {
+                    this.mostrarErrordlg('Las contraseñas no coinciden', shadow)
                 }
             }
-            else{
-                this.mostrarErrordlg('Contraseña incorrecta',shadow)
+            else {
+                this.mostrarErrordlg('Contraseña incorrecta', shadow)
             }
         })
 
     }
-  
+
     mostrarErrordlg(titulo, shadow) {
         const errorDlg = document.createElement('error-dlg')
         errorDlg.setAttribute('titulo', titulo)
