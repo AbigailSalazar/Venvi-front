@@ -10,6 +10,7 @@ export class ListaProductos extends HTMLElement {
 
     connectedCallback() {
         const shadow = this.attachShadow({ mode: "open" })
+        this.#verificarJwt()
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.#cargarProductos(shadow)
@@ -37,6 +38,12 @@ export class ListaProductos extends HTMLElement {
         `
     }
 
+    #verificarJwt(){
+        const jwt = LocalStorageService.getItem('jwt')
+        if(!jwt){
+            window.location.href='/src/pages/login/login.html'
+        }
+    }
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
         link.setAttribute("rel", "stylesheet")
