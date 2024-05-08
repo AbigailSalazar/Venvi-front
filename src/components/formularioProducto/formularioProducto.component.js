@@ -115,7 +115,7 @@ export class FormularioProducto extends HTMLElement {
                 categoriasObjetos.push(objCategoria)
             }
 
-            const producto = new Producto(usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
+            const producto = new Producto(null,usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
             if (idProducto) {//Se esta editando
                 console.log('Editando producto');
                 this.mostrarLoadingdlg("Guardando cambios", shadow)

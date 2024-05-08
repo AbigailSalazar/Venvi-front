@@ -54,38 +54,47 @@ document.addEventListener('DOMContentLoaded', async () => {
         const jwt = LocalStorageService.getItem('jwt')
         if (producto && jwt) {
             const idUsuario = JwtService.decode(jwt).id
-
-            const carrito = await carritoService.getByUserId(idUsuario)
             const parrafo = btnAddToCart.querySelector('p');
+            //si el producto no es del usuario
+            if (producto.idVendedor !== idUsuario) {
+                const carrito = await carritoService.getByUserId(idUsuario)
+               
 
-            if (!carrito.message) {
-                if (carrito.productos.some(e => e._id === productoId)) {//si el producto ya esta en el carrito
-                    btnAddToCart.id = "add-to-cart-disabled"
-                    parrafo.textContent = "Agregado a tu carrito"
+                if (!carrito.message) {
+                    if (carrito.productos.some(e => e._id === productoId)) {//si el producto ya esta en el carrito
+                        btnAddToCart.id = "add-to-cart-disabled"
+                        parrafo.textContent = "Agregado a tu carrito"
+                    }
+                    else {
+                        const handleClick = async () => {
+                            producto.cantidadDisponible = inputCantidad.value
+                            await carritoService.añadirProductos(idUsuario, [producto]);
+                            btnAddToCart.id = "add-to-cart-disabled";
+                            parrafo.textContent = "Agregado a tu carrito";
+                            btnAddToCart.removeEventListener('click', handleClick);
+                        };
+                        btnAddToCart.addEventListener('click', handleClick)
+                    }
+
                 }
-                else {
+                else {//evento para agregar el producto al carrito
+
                     const handleClick = async () => {
-                        await carritoService.añadirProductos(idUsuario, [producto]);
-                        btnAddToCart.id = "add-to-cart-disabled";
-                        parrafo.textContent = "Agregado a tu carrito";
-                        btnAddToCart.removeEventListener('click', handleClick);
-                    };
+                        producto.cantidadDisponible = inputCantidad.value
+                        const carrito = new Carrito(null, idUsuario, producto.precio, producto)
+                        await carritoService.crearCarrito(carrito)
+                        btnAddToCart.id = "add-to-cart-disabled"
+                        parrafo.textContent = "Agregado a tu carrito"
+                        btnAddToCart.removeEventListener('click', handleClick)
+                    }
                     btnAddToCart.addEventListener('click', handleClick)
+
                 }
-
             }
-            else {//evento para agregar el producto al carrito
-
-                const handleClick = async () => {
-                    const carrito = new Carrito(null, idUsuario, producto.precio, producto)
-                    await carritoService.crearCarrito(carrito)
-                    btnAddToCart.id = "add-to-cart-disabled"
-                    parrafo.textContent = "Agregado a tu carrito"
-                    btnAddToCart.removeEventListener('click', handleClick)
-                }
-                btnAddToCart.addEventListener('click', handleClick)
-
+            else{
+                parrafo.textContent = "Vista de ejemplo"
             }
+
         }
         else {
             btnAddToCart.addEventListener('click', () => {

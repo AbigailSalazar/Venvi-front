@@ -1,5 +1,6 @@
 export class Producto{
-    constructor(idVendedor,nombre,fotos,precio,cantidadDisponible,descripcion,categorias) {
+    constructor(id,idVendedor,nombre,fotos,precio,cantidadDisponible,descripcion,categorias) {
+        this.id=id
         this.idVendedor=idVendedor
         this.nombre=nombre
         this.fotos=fotos

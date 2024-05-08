@@ -115,13 +115,13 @@ export class CarritoService {
         }
     }
 
-    async eliminarProductos(idUsuario, idProductos) {
+    async eliminarProductos(idUsuario, productos) {
         const myHeaders = new Headers();
-        myHeaders.append("Authorization", token);
+        myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
         myHeaders.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
-            "productos": idProductos
+            "productos": productos
         });
 
         const requestOptions = {

@@ -42,6 +42,7 @@ h2{
 
 p.black{
     color: #191C1F;
+    font-weight: 600;
 }
 
 
@@ -169,4 +170,6 @@ div#content{
 div.flex{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
