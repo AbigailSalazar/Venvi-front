@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./carrito.css">
+    <script type="module" src="/script.js"></script>
+    <title>Tu carrito</title>
+</head>
+
+<body>
+    <nav-bar></nav-bar>
+    <main>
+
+        <div class="tabla">
+            <h3>Lista de artículos</h3>
+            <div id="columnnames">
+                <label>PRODUCTOS</label>
+                <label>PRECIO</label>
+                <label>CANTIDAD</label>
+                <label>SUBTOTAL</label>
+            </div>
+            <div id="content">
+                <producto-carrito></producto-carrito>
+                <producto-carrito></producto-carrito>
+            </div>
+            <div id="regresar">
+                <img src="/src/assets/ArrowLeft.svg">
+                <p><strong>REGRESAR A LA TIENDA</strong></p>
+            </div>
+        </div>
+        <section class="bordered-container">
+            <h3>Total de la orden</h3>
+            <div class="flex">
+                <p>Subtotal</p>
+                <p class="black" id="subtotal"></p>
+            </div>
+            <div class="flex">
+                <p>Envio</p>
+                <p class="black" id="envio"></p>
+            </div>
+            <div class="flex">
+                <p>IVA</p>
+                <p class="black" id="iva"></p>
+            </div>
+            <hr>
+            <div class="flex">
+                <p class="black">Total</p>
+                <p class="black" id="subtotal"></p>
+            </div>
+            <div id="comprar">
+                <p><strong>PROCEDER A COMPRAR</strong></p>
+                <img src="/src/assets/ArrowRight.svg">
+            </div>
+        </section>
+    </main>
+    <script src="carrito.js"></script>
+</body>
+
+</html>

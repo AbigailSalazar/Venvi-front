@@ -109,6 +109,23 @@ button{
     width: max-content;
 }
 
+div#add-to-cart-disabled{
+    background-color: #E4E7E9;
+    color: #5F6C72;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    padding: 8px;
+    text-align: center;
+    font-size: 16px;
+    align-content: center;
+    vertical-align: middle;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+
 button:hover {
     cursor: pointer;
 }

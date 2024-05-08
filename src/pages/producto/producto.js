@@ -1,10 +1,15 @@
 import { ProductoService } from "../../services/productos.service.js";
 import { UsuarioService } from "../../services/usuarios.service.js";
+import { CarritoService } from "../../services/carrito.service.js";
+import { JwtService } from "../../services/jwt.service.js";
+import { LocalStorageService } from "../../services/LocalStorage.service.js";
+import { Carrito } from "../../objects/Carrito.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
 
     const productoService = new ProductoService()
     const usuarioService = new UsuarioService()
+    const carritoService = new CarritoService()
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -23,16 +28,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const menosBtn = document.getElementById('menos-cantidad')
     const masBtn = document.getElementById('mas-cantidad')
-
+    var producto = null
     if (productoId) {
         try {
-            const producto = await productoService.getById(productoId)
+            producto = await productoService.getById(productoId)
             const usuario = await usuarioService.getPerfilById(producto.idVendedor)
             if (productoId) {
                 cargarProductoInfo(producto)
                 cargarUsuarioInfo(usuario)
             }
-
             //Funcionamiento para cantidad el input de cantidad
             menosBtn.addEventListener('click', () => {
                 const cantidad = Number.parseInt(inputCantidad.value)
@@ -41,21 +45,65 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             })
         } catch (error) {
-            mostrarErrorPage("Producto no encontrado","El producto que busca no existe o ha sido eliminado")
+            mostrarErrorPage("Producto no encontrado", "El producto que busca no existe o ha sido eliminado")
+            console.log(error);
+        }
+
+        const btnAddToCart = document.getElementById('add-to-cart')
+
+        const jwt = LocalStorageService.getItem('jwt')
+        if (producto && jwt) {
+            const idUsuario = JwtService.decode(jwt).id
+
+            const carrito = await carritoService.getByUserId(idUsuario)
+            const parrafo = btnAddToCart.querySelector('p');
+
+            if (!carrito.message) {
+                if (carrito.productos.some(e => e._id === productoId)) {//si el producto ya esta en el carrito
+                    btnAddToCart.id = "add-to-cart-disabled"
+                    parrafo.textContent = "Agregado a tu carrito"
+                }
+                else {
+                    const handleClick = async () => {
+                        await carritoService.añadirProductos(idUsuario, [producto]);
+                        btnAddToCart.id = "add-to-cart-disabled";
+                        parrafo.textContent = "Agregado a tu carrito";
+                        btnAddToCart.removeEventListener('click', handleClick);
+                    };
+                    btnAddToCart.addEventListener('click', handleClick)
+                }
+
+            }
+            else {//evento para agregar el producto al carrito
+
+                const handleClick = async () => {
+                    const carrito = new Carrito(null, idUsuario, producto.precio, producto)
+                    await carritoService.crearCarrito(carrito)
+                    btnAddToCart.id = "add-to-cart-disabled"
+                    parrafo.textContent = "Agregado a tu carrito"
+                    btnAddToCart.removeEventListener('click', handleClick)
+                }
+                btnAddToCart.addEventListener('click', handleClick)
+
+            }
+        }
+        else {
+            btnAddToCart.addEventListener('click', () => {
+                window.location.href = "/src/pages/login/login.html"
+            })
         }
     }
-    else
-    {
-        mostrarErrorPage("Direccion incorrecta","La dirección a la que desea ingresar es incorrecta")
+    else {
+        mostrarErrorPage("Direccion incorrecta", "La dirección a la que desea ingresar es incorrecta")
     }
 
-    
-    function mostrarErrorPage(titulo,mensaje){
+
+    function mostrarErrorPage(titulo, mensaje) {
         const errorPage = document.createElement('error-page')
         const main = document.getElementsByTagName('main')[0]
-        errorPage.setAttribute('titulo',titulo)
-        errorPage.setAttribute('mensaje',mensaje)
-        main.innerHTML=''
+        errorPage.setAttribute('titulo', titulo)
+        errorPage.setAttribute('mensaje', mensaje)
+        main.innerHTML = ''
         main.appendChild(errorPage)
     }
 

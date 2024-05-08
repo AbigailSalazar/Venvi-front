@@ -7,6 +7,7 @@ import { ErrorDialog } from "./src/components/popup/errordlg.component.js";
 import { LoadingDlg } from "./src/components/popup/loading.component.js";
 import { PopUp } from "./src/components/popup/popup.component.js";
 import { Producto } from "./src/components/producto/producto.component.js";
+import { ProductoCarrito } from "./src/components/productoCarrito/productoCarrito.component.js";
 import { ProductoLista } from "./src/components/productoLista/productoLista.component.js";
 import { UsuarioConfig } from "./src/components/usuarioConfig/usuarioConfig.component.js";
 import { UsuarioNavSettings } from "./src/components/usuarioaNavSettings/usuarioNavSettings.component.js";
@@ -24,3 +25,4 @@ window.customElements.define("loading-dlg",LoadingDlg)
 window.customElements.define("error-dlg",ErrorDialog)
 window.customElements.define("user-settings",UsuarioConfig)
 window.customElements.define("error-page",ErrorPage)
+window.customElements.define("producto-carrito",ProductoCarrito)

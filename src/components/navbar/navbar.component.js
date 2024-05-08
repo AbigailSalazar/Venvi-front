@@ -44,7 +44,7 @@ export class Navbar extends HTMLElement {
         });
 
         shadow.getElementById('car').addEventListener("click", () => {
-            window.location.href = '/carrito.html';
+            window.location.href = '/../src/pages/carrito/carrito.html';
         });
 
         shadow.getElementById('user').addEventListener("click", () => {
