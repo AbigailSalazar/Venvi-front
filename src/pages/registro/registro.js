@@ -1,6 +1,5 @@
 import { Usuario } from "../../objects/Usuario.js";
 import { UsuarioService } from "../../services/usuarios.service.js";
-import { ConvertirImagen } from "../../utils/convertirImagen.js";
 
 const registerForm = document.getElementById('form-registro');
 

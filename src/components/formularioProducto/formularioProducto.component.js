@@ -157,8 +157,9 @@ export class FormularioProducto extends HTMLElement {
             //Para cambiar a la lista de productos
             section.innerHTML = '';
             const listaProductos = document.createElement('lista-productos')
-            section.appendChild(listaProductos)
             btnSaveChanges.remove()
+            section.appendChild(listaProductos)
+           
         })
 
     }

@@ -44,7 +44,13 @@ export class Navbar extends HTMLElement {
         });
 
         shadow.getElementById('car').addEventListener("click", () => {
-            window.location.href = '/../src/pages/carrito/carrito.html';
+            const token = LocalStorageService.getItem('jwt')
+            if (token){
+                window.location.href = '/../src/pages/carrito/carrito.html';
+            }
+            else{
+                window.location.href = '/../src/pages/login/login.html';
+            }
         });
 
         shadow.getElementById('user').addEventListener("click", () => {
