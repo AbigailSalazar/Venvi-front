@@ -65,7 +65,9 @@ export class ProductoLista extends HTMLElement {
         btnEdit.addEventListener('click', () => {
             const btnAdd = document.querySelector('#add-producto')
             const section = document.querySelector('#dinamic-content')
-            btnAdd.remove()
+            if(btnAdd){
+                btnAdd.remove()
+            }
             
             section.innerHTML = '';
 

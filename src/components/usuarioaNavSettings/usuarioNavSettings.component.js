@@ -54,6 +54,11 @@ export class UsuarioNavSettings extends HTMLElement {
     #agregarOptionHandler(shadow) {
         const opcionProductos = shadow.querySelector('#opcion-productos');
         opcionProductos.addEventListener('click', () => {
+            const btnSave = document.querySelector('button')
+            if(btnSave){
+                btnSave.remove()
+            }
+            
             const section = document.querySelector('#dinamic-content')
             section.innerHTML = '';
             const formulario = document.createElement('lista-productos')
