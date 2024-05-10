@@ -27,8 +27,8 @@ export class PopUp extends HTMLElement {
             </div>
             
             <div id="btn-container">
-                <button id="cancelar">No, Cancel</button>
-                <button id="aceptar">Yes, Confirmar</button>
+                <button id="cancelar">No, Cancelar</button>
+                <button id="aceptar">Si, Confirmar</button>
             </div>
 
         </Dialog>

@@ -49,7 +49,7 @@ export class FormularioProducto extends HTMLElement {
             <div class="divided">
             <div class="campo">
                 <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidadDisponible" min="0" placeholder="0" required value="${producto ? producto.cantidadDisponible : 0}">
+                <input type="number" id="cantidad" name="cantidadDisponible" min="1" placeholder="1" required value="${producto ? producto.cantidadDisponible : 1}">
             </div>
             <div class="campo">
                 <label for="precio">Precio</label>
@@ -111,57 +111,77 @@ export class FormularioProducto extends HTMLElement {
             //Crear categorias
             const categoriasObjetos = []
             for (const categoria of categorias) {
-                const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria.toLowerCase().trim(), categoria))
+                if(categoria!==""){
+                    const objCategoria = await this.categoriaService.addCategoria(new CategoriaProducto(categoria.toLowerCase().trim(), categoria))
                 categoriasObjetos.push(objCategoria)
+                }
             }
 
-            const producto = new Producto(null,usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
-            if (idProducto) {//Se esta editando
-                console.log('Editando producto');
-                this.mostrarLoadingdlg("Guardando cambios", shadow)
-                const respuesta = await this.productoService.editById(idProducto, producto)
-                console.log('respuesta: ', respuesta);
-
-                if(this.fotosToDelete){
-                    await this.productoService.deleteFotosById(idProducto,this.fotosToDelete)
-                }
-                if(this.fotos){
-                    const filesData = new FormData()
-                    for (const file of this.fotos) {
-                        filesData.append('fotos', file)
+            if(nombre&&precio&&cantidad&&descripcion){
+                const producto = new Producto(null,usuarioId, nombre, [], precio, cantidad, descripcion, categoriasObjetos)
+                if (idProducto) {//Se esta editando
+                    console.log('Editando producto');
+                    this.mostrarLoadingdlg("Guardando cambios", shadow)
+                    const respuesta = await this.productoService.editById(idProducto, producto)
+                    console.log('respuesta: ', respuesta);
+    
+                    if(this.fotosToDelete){
+                        await this.productoService.deleteFotosById(idProducto,this.fotosToDelete)
                     }
-
-                    console.log('Subiendo fotos..');
-                    await this.productoService.addFotos(idProducto, filesData)
-                }
-
-            }
-            else {
-                //Guardar producto
-                this.mostrarLoadingdlg("Publicando producto", shadow)
-                const respuesta = await this.productoService.addProductos(producto)
-
-                console.log('respuesta: ', respuesta);
-                const input = shadow.getElementById('fotos');
-                //subir imagenes
-                if (this.fotos && respuesta) {
-                    const filesData = new FormData()
-                    for (const file of this.fotos) {
-                        filesData.append('fotos', file)
+                    if(this.fotos){
+                        const filesData = new FormData()
+                        for (const file of this.fotos) {
+                            filesData.append('fotos', file)
+                        }
+    
+                        console.log('Subiendo fotos..');
+                        await this.productoService.addFotos(idProducto, filesData)
                     }
-
-                    console.log('Subiendo fotos..');
-                    await this.productoService.addFotos(respuesta._id, filesData)
+    
                 }
+                else {
+                    //Guardar producto
+                    if(this.fotos.length==0){
+                        this.mostrarErrordlg('No ha agregado una foto')
+                        return
+                    }
+                    this.mostrarLoadingdlg("Publicando producto", shadow)
+                    const respuesta = await this.productoService.addProductos(producto)
+    
+                    console.log('respuesta: ', respuesta);
+                    const input = shadow.getElementById('fotos');
+                    //subir imagenes
+                    if (this.fotos && respuesta) {
+                        const filesData = new FormData()
+                        for (const file of this.fotos) {
+                            filesData.append('fotos', file)
+                        }
+    
+                        console.log('Subiendo fotos..');
+                        await this.productoService.addFotos(respuesta._id, filesData)
+                    }
+                }
+                //Para cambiar a la lista de productos
+                section.innerHTML = '';
+                const listaProductos = document.createElement('lista-productos')
+                btnSaveChanges.remove()
+                section.appendChild(listaProductos)
             }
-            //Para cambiar a la lista de productos
-            section.innerHTML = '';
-            const listaProductos = document.createElement('lista-productos')
-            btnSaveChanges.remove()
-            section.appendChild(listaProductos)
+            else{
+                this.mostrarErrordlg('Los campos nombre, precio, cantidad y descripción son obligatorios')
+            }
+
+         
            
         })
 
+    }
+
+    mostrarErrordlg(titulo){
+        const errorDlg = document.createElement('error-dlg')
+        errorDlg.setAttribute('titulo', titulo)
+        document.body.appendChild(errorDlg)
+        return errorDlg
     }
 
     #addFotosToEdit(producto,shadow) {
