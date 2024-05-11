@@ -132,14 +132,16 @@ export class UsuarioConfig extends HTMLElement {
         const numeroInput = shadow.querySelector('#numero')
         const postalInput = shadow.querySelector('#postal')
         try {
-            this.direccionInfo = await this.direccionService.getByIdUser(this.id)
-            if (this.direccionInfo) {
-                calleInput.value = this.direccionInfo.calle
-                numeroInput.value = this.direccionInfo.numero
-                postalInput.value = this.direccionInfo.codigoPostal
+            const direccion= await this.direccionService.getByIdUser(this.id)
+            if (direccion) {
+                calleInput.value = direccion.calle
+                numeroInput.value = direccion.numero
+                postalInput.value = direccion.codigoPostal
+                this.direccionInfo=direccion
             }
         } catch (error) {
             console.log(error);
+            this.direccionInfo=null
         }
 
     }
