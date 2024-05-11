@@ -2,6 +2,7 @@ import { ErrorPage } from "./src/components/error/error.component.js";
 import { FilterTag } from "./src/components/filterTag/filterTag.component.js";
 import { FormularioProducto } from "./src/components/formularioProducto/formularioProducto.component.js";
 import { ListaProductos } from "./src/components/listaProductos/listaProductos.component.js";
+import { MensajeExito } from "./src/components/mensajeExito/mensajeExito.component.js";
 import { Navbar } from "./src/components/navbar/navbar.component.js";
 import { ErrorDialog } from "./src/components/popup/errordlg.component.js";
 import { LoadingDlg } from "./src/components/popup/loading.component.js";
@@ -26,3 +27,4 @@ window.customElements.define("error-dlg",ErrorDialog)
 window.customElements.define("user-settings",UsuarioConfig)
 window.customElements.define("error-page",ErrorPage)
 window.customElements.define("producto-carrito",ProductoCarrito)
+window.customElements.define("exito-page",MensajeExito)

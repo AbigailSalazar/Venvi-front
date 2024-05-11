@@ -1,0 +1,76 @@
+div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+img {
+    width: 30%;
+    height: 30%;
+    align-self: center;
+    justify-self: center;
+}
+
+img.icon {
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    align-self: center;
+    margin-left: 5px;
+}
+
+#compras img.icon{
+    filter: invert(56%) sepia(16%) saturate(1518%) hue-rotate(154deg) brightness(92%) contrast(89%);
+}
+
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #191C1F;
+}
+
+p {
+    color: #5F6C72;
+    font-size: 14px;
+}
+
+div#regresar,
+div#compras {
+    display: flex;
+    flex-direction: row;
+    border-radius: 2px;
+    text-transform: uppercase;
+    width: 50%;
+    padding: 8px;
+    cursor: pointer;
+}
+
+#regresar {
+    background-color: #4097BF;
+
+}
+
+#regresar p {
+    color: #FFFF;
+}
+
+#compras p {
+    color: #4097BF;
+}
+
+#compras {
+    border: 2px solid #4097BF;
+    background-color: #FFFF;
+
+}
+
+
+div.button-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    gap: 24px;
+}
