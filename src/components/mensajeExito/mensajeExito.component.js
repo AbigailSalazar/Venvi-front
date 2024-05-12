@@ -32,7 +32,7 @@ export class MensajeExito extends HTMLElement {
     #addButtonsHandler(shadow){
         let btnExit = shadow.querySelector('#compras')
         btnExit.addEventListener("click",()=>{
-            
+            window.location.href="/usuario-productos.html"
         })
         let btnCancel = shadow.querySelector('#regresar')
         btnCancel.addEventListener("click",()=>{

@@ -49,3 +49,30 @@ div#content{
     display: block;
   
 }
+
+div.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+button {
+  height: 48px;
+  width: fit-content;
+  padding: 12px;
+  color: #FFFFFF;
+  background-color: #4097BF;
+  font-size: 12px;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  align-self: flex-start;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: #265B73;
+}

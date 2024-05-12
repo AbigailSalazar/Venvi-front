@@ -14,11 +14,12 @@ export class ListaProductos extends HTMLElement {
         this.#agregarEstilo(shadow)
         this.#render(shadow)
         this.#cargarProductos(shadow)
-        this.#agregarBotonAdd()
+        this.#agregarBotonAdd(shadow)
     }
 
     #render(shadow) {
         shadow.innerHTML += `
+        <div id="contenedor" class="flex">
         <div class="tabla">
         <h3>ADMINISTRACIÓN DE PRODUCTOS EN VENTA</h3>
         <div id="columnnames">
@@ -34,7 +35,7 @@ export class ListaProductos extends HTMLElement {
         <div id="content">
         </div>
     </div>
-        
+        </div>
         `
     }
 
@@ -51,15 +52,15 @@ export class ListaProductos extends HTMLElement {
         shadow.appendChild(link)
     }
 
-    #agregarBotonAdd() {
+    #agregarBotonAdd(shadow) {
         const btn=document.querySelector('button')
         if(!btn){
             const btnAdd = document.createElement('button')
         btnAdd.id="add-producto"
-        const main = document.getElementsByTagName('main')
+        const contenedor = shadow.querySelector('#contenedor')
 
         btnAdd.textContent = 'Agregar producto'
-        main[0].appendChild(btnAdd)
+        contenedor.appendChild(btnAdd)
 
         //Para cambiar a la lista de productos
 
