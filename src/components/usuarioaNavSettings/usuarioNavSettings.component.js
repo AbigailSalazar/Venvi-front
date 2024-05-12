@@ -21,15 +21,15 @@ export class UsuarioNavSettings extends HTMLElement {
             <section>
                 <div class="selected" id="opcion-productos">
                     <img class="icono-productos" src="/src/assets/Stack.svg">
-                    <label>Mis Productos</label>
+                    <label>Mis productos</label>
                 </div>
                 <div  id="opcion-compras">
                     <img class="icono-compras" src="/src/assets/shopping-cart.svg">
-                    <label>Mis Compras</label>
+                    <label>Mis compras</label>
                 </div>
                 <div  id="opcion-ventas">
                     <img class="icono-ventas" src="/src/assets/Storefront.svg">
-                    <label>Mis Ventas</label>
+                    <label>Mis ventas</label>
                 </div>
                 <div id="opcion-config">
                     <img class="icono-config" src="/src/assets/Gear.svg">
@@ -85,6 +85,21 @@ export class UsuarioNavSettings extends HTMLElement {
 
             this.cambiarColorSeleccionado(shadow,opcionCompras)
             section.appendChild(compras)
+        })  
+
+        const opcionVentas = shadow.querySelector('#opcion-ventas');
+        opcionVentas.addEventListener('click',()=>{
+            const btnSave = document.querySelector('button')
+            if(btnSave){
+                btnSave.remove()
+            }
+            console.log('opcion ventas');
+            const section = document.querySelector('#dinamic-content')
+            section.innerHTML = '';
+            const ventas = document.createElement('lista-ventas')
+
+            this.cambiarColorSeleccionado(shadow,opcionVentas)
+            section.appendChild(ventas)
         })  
 
         const opcionConfig = shadow.querySelector('#opcion-config');

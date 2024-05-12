@@ -16,6 +16,8 @@ import { ProductoCompra } from "./src/components/productoCompra/productoCompra.c
 import { ProductoLista } from "./src/components/productoLista/productoLista.component.js";
 import { UsuarioConfig } from "./src/components/usuarioConfig/usuarioConfig.component.js";
 import { UsuarioNavSettings } from "./src/components/usuarioaNavSettings/usuarioNavSettings.component.js";
+import { ListaVentas } from "./src/components/listaVentas/listaVentas.component.js";
+import { ProductoVenta } from "./src/components/venta/venta.component.js";
 
 
 window.customElements.define("nav-bar",Navbar)
@@ -36,3 +38,5 @@ window.customElements.define("lista-compras",ListaCompras)
 window.customElements.define("compra-lista",Compra)
 window.customElements.define("compra-info",CompraInfo)
 window.customElements.define("producto-compra",ProductoCompra)
+window.customElements.define("lista-ventas",ListaVentas)
+window.customElements.define("producto-venta",ProductoVenta)

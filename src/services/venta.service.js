@@ -91,4 +91,28 @@ export class VentaService{
         window.location.href = 'src/pages/login/login.html'
         LocalStorageService.deleteItem('jwt')
     }
+
+    async getByIdVendedor(idVendedor){
+        
+        const myHeaders = new Headers();
+
+        myHeaders.append("Authorization", LocalStorageService.getItem('jwt'));
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+          };
+          
+          try {
+            const response = await fetch(this.#urlServicio+"/vendedor/"+idVendedor, requestOptions);
+            if (response.status == 403) {
+                this.cerrarSesiónExpirada()
+                return
+            }
+            const ventas = await response.json();
+            return ventas
+        } catch (error) {
+            console.error(error); //TODO: manejar los errores
+        }
+    }
 }
