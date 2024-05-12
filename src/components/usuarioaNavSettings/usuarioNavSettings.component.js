@@ -72,6 +72,21 @@ export class UsuarioNavSettings extends HTMLElement {
             window.location.href = '/index.html';
         })  
 
+        const opcionCompras = shadow.querySelector('#opcion-compras');
+        opcionCompras.addEventListener('click',()=>{
+            const btnSave = document.querySelector('button')
+            if(btnSave){
+                btnSave.remove()
+            }
+            console.log('opcion compras');
+            const section = document.querySelector('#dinamic-content')
+            section.innerHTML = '';
+            const compras = document.createElement('lista-compras')
+
+            this.cambiarColorSeleccionado(shadow,opcionCompras)
+            section.appendChild(compras)
+        })  
+
         const opcionConfig = shadow.querySelector('#opcion-config');
         opcionConfig.addEventListener('click',async ()=>{
         

@@ -1,0 +1,48 @@
+section{
+    display: grid;
+    width:auto;
+    height: 72px;
+    gap: 24px;
+    margin-bottom: 8px;
+    padding: 0px 16px 0px 16px;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+section:hover{
+    background-color: #F2F2F2;
+    cursor: pointer;
+    
+}
+
+label{
+    width: 100%;
+    align-self: center;
+    justify-content: center;
+}
+
+label:first-letter {text-transform: uppercase}
+
+label#nombre,label#categorias{
+    text-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-color: #4097BF transparent;
+    scrollbar-width: thin;
+}
+
+label:hover{
+    cursor: pointer;
+}
+
+img.icon{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    align-self: center;
+}
+
+img#imagen{
+    width: 72px;
+    height: 72px;
+    align-self: center;
+}

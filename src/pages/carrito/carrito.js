@@ -29,8 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const direccion = await direccionService.getByIdUser(idUsuario)
             if (direccion) {
                 const carrito = await carritoService.getByUserId(idUsuario)
-                const venta = new Venta(null, idUsuario, null,
-                    Number(subtotalLabel).textContent, 0,
+                const venta = new Venta(null,
+                    idUsuario,
+                    null,
+                    Number(subtotalLabel.textContent), 0,
                     Number(totalLabel.textContent),
                     Number(ivaLabel.textContent),
                     direccion._id, carrito.productos)
@@ -39,10 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     mostrarErrorPage("Ha ocurrido un error!", ventaNueva.error)
                     return
                 }
-                console.log("Eliminando productos de carrito...");
-                console.log("productos:" + carrito.productos);
+
                 await carritoService.eliminarProductos(idUsuario, carrito.productos)
-                console.log("Productos eliminados");
                 mostrarMensajeExito("Tu pedido se ha hecho correctamente", "Puedes consultar los detalles en el apartado mis compras de tu perfil.")
             } else {
                 mostrarErrordlg("Dirección no encontrada!", "Agregue una dirección en su perfil")

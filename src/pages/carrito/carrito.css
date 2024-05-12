@@ -30,9 +30,11 @@ p{
     font-size: 14px;
 }
 
-hr{
+hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
     color: #E4E7E9;
-    height: 1px;
+    border: 1px solid;
 }
 
 h2{
@@ -140,6 +142,7 @@ div#regresar p{
     width: auto;
     margin: right 5%;;
     padding: 20px;
+    width: 70%;
   }
 
 .tabla> h3{
