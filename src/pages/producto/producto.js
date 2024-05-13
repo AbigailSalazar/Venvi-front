@@ -4,6 +4,9 @@ import { CarritoService } from "../../services/carrito.service.js";
 import { JwtService } from "../../services/jwt.service.js";
 import { LocalStorageService } from "../../services/LocalStorage.service.js";
 import { Carrito } from "../../objects/Carrito.js";
+import { VentaService } from "../../services/venta.service.js";
+import { DireccionesService } from "../../services/direcciones.service.js";
+import { Venta } from "../../objects/Venta.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -52,14 +55,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         const btnAddToCart = document.getElementById('add-to-cart')
 
         const jwt = LocalStorageService.getItem('jwt')
+        const idUsuario = JwtService.decode(jwt).id
         if (producto && jwt) {
-            const idUsuario = JwtService.decode(jwt).id
+            
             const parrafo = btnAddToCart.querySelector('p');
             //si el producto no es del usuario
             if (producto.idVendedor !== idUsuario) {
                 const carrito = await carritoService.getByUserId(idUsuario)
                
-
+                const btnComprar = document.getElementById('buy')
+                btnComprar.addEventListener('click', async function () {
+                        producto.cantidadDisponible=inputCantidad.value
+                        const ventaService = new VentaService()
+                        const direccionService = new DireccionesService()
+                        const direccion = await direccionService.getByIdUser(idUsuario)
+                        if (direccion) {
+                            const precio = producto.precio
+                            const iva = precio*.16
+                            const venta = new Venta(null,
+                                idUsuario,
+                                null,
+                                Number(precio), 0,
+                                Number(precio+iva),
+                                Number(iva),
+                                direccion._id, [producto])
+                            const ventaNueva = await ventaService.crearVenta(venta)
+                            if (ventaNueva.error) {
+                                mostrarErrorPage("Ha ocurrido un error!", ventaNueva.error)
+                                return
+                            }
+                            mostrarMensajeExito("Tu pedido se ha hecho correctamente", "Puedes consultar los detalles en el apartado mis compras de tu perfil.")
+        
+                        }
+                        else{
+                            mostrarErrorPage("No ha registrado una dirección", "Registre una dirección en la configuración de su perfil")
+                        }
+                    
+            
+                })
                 if (!carrito.message) {
                     if (carrito.productos.some(e => e._id === productoId)) {//si el producto ya esta en el carrito
                         btnAddToCart.id = "add-to-cart-disabled"
@@ -105,6 +138,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     else {
         mostrarErrorPage("Direccion incorrecta", "La dirección a la que desea ingresar es incorrecta")
     }
+
+    function mostrarErrordlg(titulo, mensaje) {
+        const errorDlg = document.createElement('error-dlg')
+        errorDlg.setAttribute('titulo', titulo)
+        errorDlg.textContent = mensaje
+        document.body.appendChild(errorDlg)
+        return errorDlg
+    }
+
+    function mostrarMensajeExito(titulo, mensaje) {
+        const exitoPage = document.createElement('exito-page')
+        const main = document.getElementsByTagName('main')[0]
+        exitoPage.setAttribute('titulo', titulo)
+        exitoPage.setAttribute('mensaje', mensaje)
+        main.innerHTML = ''
+        main.appendChild(exitoPage)
+    }
+
 
 
     function mostrarErrorPage(titulo, mensaje) {

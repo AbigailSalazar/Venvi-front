@@ -31,20 +31,20 @@ export class CompraInfo extends HTMLElement {
           <h3>Total de la orden</h3>
           <div class="flex">
               <p>Subtotal</p>
-              <p class="black" id="subtotal"></p>
+              <p class="black" id="subtotal">$</p>
           </div>
           <div class="flex">
               <p>Envio</p>
-              <p class="black" id="envio"></p>
+              <p class="black" id="envio">$0</p>
           </div>
           <div class="flex">
               <p>IVA</p>
-              <p class="black" id="iva"></p>
+              <p class="black" id="iva">$</p>
           </div>
           <hr>
           <div class="flex">
               <p class="black">Total</p>
-              <p class="black" id="total"></p>
+              <p class="black" id="total">$</p>
           </div>
       </section>
         </div>
@@ -80,9 +80,9 @@ export class CompraInfo extends HTMLElement {
             listaProductos.appendChild(productoElement)
         }
 
-        subtotalLabel.textContent = compra.subtotal
-        ivaLabel.textContent = compra.iva
-        totalLabel.textContent = compra.total
+        subtotalLabel.textContent += compra.subtotal
+        ivaLabel.textContent += compra.iva
+        totalLabel.textContent += compra.total
 
 
 

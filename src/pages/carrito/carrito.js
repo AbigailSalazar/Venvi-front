@@ -102,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     subtotal += producto.precio * producto.cantidadDisponible
                 }
             }
-            subtotalLabel.textContent = subtotal
-            ivaLabel.textContent = subtotal * .16
-            totalLabel.textContent = subtotal + (subtotal * .16)
+            subtotalLabel.textContent += subtotal
+            ivaLabel.textContent += subtotal * .16
+            totalLabel.textContent += subtotal + (subtotal * .16)
 
         }
 
