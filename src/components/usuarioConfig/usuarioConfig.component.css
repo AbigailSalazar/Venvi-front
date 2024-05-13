@@ -8,9 +8,7 @@ div.info{
     display: flex;
     flex-direction: column;
     border: 1px solid #E4E7E9; 
-    width: 100%;
     gap: 16px;
-    padding: 24px;
     grid-column: 2 span;
 }
 
@@ -31,18 +29,17 @@ div.grid{
 div.flex{
     display: flex;
     flex-direction: row;
+    padding: 16px;
 }
 
 div.direccion{
     border: 1px solid #E4E7E9; 
     gap: 16px;
-    padding: 24px;
 }
 
 div.password{
     border: 1px solid #E4E7E9; 
     gap: 16px;
-    padding: 24px;
 }
 
 button {
@@ -59,12 +56,11 @@ button {
     align-self: flex-start;
     cursor: pointer;
     white-space: nowrap;
-    margin-top: 16px;
+    margin: 16px;
 }
 
 h3{
     text-transform: uppercase;
-    width: 100%;
     border-bottom: 1px solid #E4E7E9;
     padding: 8px;
 }
@@ -86,6 +82,7 @@ div.inputContainer{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin: 16px;
 }
 
 .inputCotainer.half{
