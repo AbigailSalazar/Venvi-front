@@ -18,8 +18,7 @@ section{
 
 section:hover{
     background-color: #F2F2F2;
-    cursor: pointer;
-    
+   
 }
 
 label{
@@ -35,10 +34,6 @@ label#nombre,label#categorias{
     overflow-x: auto;
     scrollbar-color: #4097BF transparent;
     scrollbar-width: thin;
-}
-
-label:hover{
-    cursor: pointer;
 }
 
 img.icon{
@@ -74,7 +69,7 @@ button.range{
     text-transform: uppercase;
     border-radius: 2px;
     padding: 4px;
-
+    cursor: pointer;
     text-align: center;
     width: max-content;
 }

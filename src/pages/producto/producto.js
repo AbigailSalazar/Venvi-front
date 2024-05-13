@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
             else{
+                btnAddToCart.id = "add-to-cart-disabled"
                 parrafo.textContent = "Vista de ejemplo"
             }
 

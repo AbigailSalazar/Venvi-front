@@ -2,6 +2,7 @@ import { LocalStorageService } from "../../services/LocalStorage.service.js"
 import { CarritoService } from "../../services/carrito.service.js"
 import { JwtService } from "../../services/jwt.service.js"
 import { Producto } from "../../objects/Producto.js"
+import { ProductoService } from "../../services/productos.service.js"
 
 export class ProductoCarrito extends HTMLElement {
 
@@ -15,6 +16,7 @@ export class ProductoCarrito extends HTMLElement {
         this.#render(shadow)
         this.#addElminarHandler(shadow)
         this.#agregarClickHandler(shadow)
+        //this.#addCantidadHandler(shadow)
     }
 
     #render(shadow) {
@@ -31,11 +33,7 @@ export class ProductoCarrito extends HTMLElement {
                         <label id="nombre">${nombre}</label>
                     </div>  
                     <label id="precio">$${precio}</label>
-                    <div class="input-container">
-                    <button id="menos-cantidad" class="range">-</button>
                     <input type="number" name="cantidad" id="cantidad" min="1" value=${cantidad} readonly>
-                    <button id="mas-cantidad" class="range">+</button>
-                </div>
                     <label id="subtotal">${precio * cantidad}</label>
                </section>
         
@@ -62,7 +60,7 @@ export class ProductoCarrito extends HTMLElement {
                 const subtotalLabel = document.getElementById('subtotal')
                 const totalLabel = document.getElementById('total')
                 const ivaLabel = document.getElementById('iva')
-
+ 
                 const subtotal=Number(subtotalLabel.textContent)-(producto.precio*producto.cantidadDisponible)
                 subtotalLabel.textContent = subtotal
                 ivaLabel.textContent = subtotal * .16
@@ -73,6 +71,34 @@ export class ProductoCarrito extends HTMLElement {
 
         })
     }
+
+    async #addCantidadHandler(shadow){
+        const menosBtn = shadow.querySelector('#menos-cantidad')
+        const masBtn = shadow.querySelector('#mas-cantidad')
+        const inputCantidad = shadow.querySelector('#cantidad')
+        const productoService = new ProductoService()
+
+        const producto = await productoService.getById(this.id)
+        const eventDisminuir = new CustomEvent("menos-cantidad",{detail:this.id});
+
+        //Funcionamiento para cantidad el input de cantidad
+        menosBtn.addEventListener('click', () => {
+            const cantidad = Number.parseInt(inputCantidad.value)
+            if (cantidad >= 2) {
+                inputCantidad.value = cantidad - 1
+                window.dis
+            }
+        })
+
+        inputCantidad.setAttribute('max', producto.cantidadDisponible)
+
+        masBtn.addEventListener('click', () => {
+            const cantidad = Number.parseInt(inputCantidad.value)
+            if (cantidad < producto.cantidadDisponible)
+                inputCantidad.value = cantidad + 1
+        })
+    }
+
     #agregarEstilo(shadow) {
         let link = document.createElement('link')
         link.setAttribute("rel", "stylesheet")
