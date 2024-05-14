@@ -1,6 +1,7 @@
 div {
     display: block;
     width: min-content;
+    height: 90%;
     border-radius: 2px;
     border: 1px solid #E4E7E9;
     padding: 8px;

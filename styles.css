@@ -68,6 +68,7 @@ section#productos {
     grid-template-columns: auto;
     gap: 16px;
     align-self: self-start;
+    justify-content: center;
 }
 
 div.filtro {
