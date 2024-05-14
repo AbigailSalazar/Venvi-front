@@ -5,8 +5,7 @@ section.bordered-container{
     outline: none; 
     border-radius: 3px;
     margin: 0;
-    padding: 10px;
-    color: #191C1F;
+    color: #191C1F;margin-bottom: 16px;
 }
 
 div.campo{
@@ -18,7 +17,6 @@ div.campo{
 
 h3{
     text-transform: uppercase;
-    width: 100%;
     border-bottom: 1px solid #E4E7E9;
     padding: 8px;
 }
@@ -44,6 +42,7 @@ form{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 16px;
 }
 
 div.divided{
@@ -61,6 +60,7 @@ div.fotos{
     width: 100%; /* Ancho fijo */
     scrollbar-color: #4097BF transparent;
     scrollbar-width: thin;
+    padding: 5px;
 }
 
 button.add{
@@ -72,6 +72,8 @@ button.add{
     background-color: #4097BF;
     border: none;
     justify-self: right;
+    margin-left: 8px;
+    margin-top: 8px;
 }
 
 button:hover{
