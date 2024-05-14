@@ -13,6 +13,8 @@ main {
 }
 
 div.imagenes{
+    display: flex;
+    flex-direction: column;
     width: 35%;
     height: 500px;
     gap: 24px;
@@ -32,13 +34,24 @@ div.vendedor{
 }
 
 img{
-    border: 1px solid #E4E7E9;
+
     border-radius: 4px;
     cursor: pointer;
 }
-img.principal{
+
+div.principal{
+    border: 1px solid #E4E7E9;
+    justify-content: center;
+    display: flex;
     height: 80%;
     width: 100%;
+}
+
+#principal{
+    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+    align-self: center;
 }
 
 div#carrusel{
