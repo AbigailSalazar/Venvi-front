@@ -20,7 +20,7 @@ Proyecto para la materia de temas emergentes de aplicaciones web. Front-end para
 - `Administración de direcciones:` creación, consulta y edición de direcciones de usuarios.
 - `Administración de multimedia:` Guardado, edición y eliminación de imágenes para productos y foto de usuario.
 
-💻Tecnologías utilizadas
+## 💻Tecnologías utilizadas
 * HTML
 * CSS
 * JavaScript
