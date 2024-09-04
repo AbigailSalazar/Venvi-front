@@ -1,5 +1,6 @@
 # Venvi
 Proyecto para la materia de temas emergentes de aplicaciones web. Front-end para la aplicación Venvi: una tienda en linea de segunda mano donde los usuarios pueden comprar y vender productos.
+El back-end se encuentra en este repositorio: [Venvi](https://github.com/AbigailSalazar/Venvi)
 
 ## 🔨Funcionalidades
 ![venvi1](https://github.com/AbigailSalazar/Venvi-front/assets/75355095/22f79a07-1e88-4336-8034-97c65ca09c26)
